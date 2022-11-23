@@ -1,23 +1,15 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { SettingsBackupRestoreSharp } from '@mui/icons-material';
 import { Typography } from '@mui/material';
-import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
-import Grid from '@mui/material/Grid';
 import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import TextField from '@mui/material/TextField';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-
-
 
 function OneCart(props) {
 
@@ -96,7 +88,6 @@ function OneCart(props) {
     axios
       .delete(`https://eventfull-backend.azurewebsites.net/cart?userID=` + props.item.userID + `&ticketTypeID=` + props.item.ticketTypeID)
       .then(function ({ data }) {
-        console.log(data)
         alert('Item deleted')
         document.location.reload(true)
       })

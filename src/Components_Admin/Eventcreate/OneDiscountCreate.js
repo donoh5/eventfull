@@ -7,7 +7,6 @@ import { Button } from '@mui/material';
 
 function OneDiscountCreate(props) {
     const onClickDelete = () => {
-        console.log("one discount create");
         axios
             .delete(`https://eventfull-backend.azurewebsites.net/discount?discountCode=` + props.item.discountCode)
             .then(function ({ data }) {

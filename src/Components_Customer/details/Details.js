@@ -1,22 +1,18 @@
 import React, { useState } from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import axios from 'axios';
 import SelectTicket from './SelectTicket';
 import { useEffect } from 'react';
-import { DatasetLinked, DateRange } from '@mui/icons-material';
 import Container from '@mui/material/Container';
-import { CardActionArea, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { flexbox } from '@mui/system';
-import { Box, ThemeProvider, createTheme } from '@mui/system';
+import { Box } from '@mui/system';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
-import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
-import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -102,10 +98,9 @@ function Details(props) {
 
     const addToCart = () => {
         const dictSize = Object.keys(dictTickets).length;
-
+        
         var i = 1;
         for (var key in dictTickets) {
-            console.log("details")
             axios
                 .post(
                     `https://eventfull-backend.azurewebsites.net/cart?userID=` +

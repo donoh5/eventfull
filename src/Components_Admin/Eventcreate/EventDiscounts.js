@@ -64,8 +64,6 @@ function EventDiscounts(props) {
                         <Typography sx={{ fontSize: 24 }} color="black">
                             Discount Codes
                         </Typography>
-                        {/* Delete Discount Code Button */}
-                        {/* <button> <img className='close-button' src={image} alt='delete button' /> </button> */}
                         <TableContainer component={Paper} sx={{ marginTop: "10px" }}>
                             <Table sx={{ minWidth: 250 }} aria-label="simple table">
                                 <TableBody>

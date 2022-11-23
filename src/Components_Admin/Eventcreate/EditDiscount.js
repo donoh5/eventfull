@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-
 import Modal from '@mui/material/Modal';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -28,7 +27,6 @@ function EditDiscount(props) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log("edit discount");
         axios
             .put(`https://eventfull-backend.azurewebsites.net/discount`, discount)
             .then(function ({ data }) {

@@ -7,7 +7,6 @@ import { Button } from '@mui/material';
 
 function OneTicketCreate(props) {
     const onClickDelete = () => {
-        console.log("one ticket create");
         axios
             .delete(`https://eventfull-backend.azurewebsites.net/ticketType?ticketTypeID=` + props.item.ticketTypeID)
             .then(function ({ data }) {

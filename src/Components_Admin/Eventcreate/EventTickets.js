@@ -21,12 +21,10 @@ function EventTickets(props) {
     //Ticket Modal Open and Close
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
     const [update, setUpdate] = useState(false);
     const [data, setData] = useState([]);
 
     useEffect(function () {
-        console.log("event ticket");
         axios
             .post(`https://eventfull-backend.azurewebsites.net/getTickets?eventID=` + props.eventID)
             .then(function ({ data }) {
@@ -64,8 +62,6 @@ function EventTickets(props) {
                         <Typography sx={{ fontSize: 24, color: 'black' }} >
                             Tickets
                         </Typography>
-                        {/* Delete Ticket Button */}
-                        {/* <button> <img className='close-button' src={image} alt='close button' /> </button> */}
                         <TableContainer component={Paper} sx={{ marginTop: "10px" }} >
                             <Table sx={{
                                 minWidth: 250,
@@ -100,8 +96,6 @@ function EventTickets(props) {
                     </CardContent>
                 </Card>
             </div>
-            {/* Button to open Dicount Creation modal */}
-            {/* Discount Code Section */}
             <CreateTicket open={open} handleClose={handleClose} eventID={props.eventID} setUpdate={setUpdate} update={update} />
         </>
     )

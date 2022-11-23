@@ -1,6 +1,4 @@
 import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
@@ -15,19 +13,6 @@ import Review from './Review';
 import axios from 'axios';
 
 const steps = ['Payment address', 'Payment details', 'Review your order'];
-
-// function getStepContent(step) {
-//     switch (step) {
-//         case 0:
-//             return <AddressForm />;
-//         case 1:
-//             return <PaymentForm />;
-//         case 2:
-//             return <Review />;
-//         default:
-//             throw new Error('Unknown step');
-//     }
-// }
 
 export default function Checkout(props) {
     const [activeStep, setActiveStep] = React.useState(0);

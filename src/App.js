@@ -1,6 +1,6 @@
-import React from 'react';
-import AppAdmin from './AppAdmin';
-import AppCustomer from './AppCustomer';
+import React, { useEffect } from 'react';
+import Navbar from './Components_Customer/navbar/Navbar';
+import Navbar_Admin from './Components_Admin/Navbar/Navbar_Admin';
 import Paper from '@mui/material/Paper';
 import { ThemeProvider } from '@mui/material/styles';
 import { customerTheme } from './GlobalTheme';
@@ -8,20 +8,27 @@ import { Box } from '@mui/system';
 
 
 function App() {
-  return (
-    <Box sx={{
-      minHeight: '100vh', 
-      minWidth: '100%',
-      background: '#111111'}}>
-    <ThemeProvider theme={customerTheme}>
+    const [isAdmin, setIsAdmin] = React.useState(false);
 
-      {/* <AppAdmin /> */}
-      <AppCustomer />
+    useEffect(function () {
+        if (localStorage.getItem('isAdmin') === "true") {
+            setIsAdmin(true);
+        }
+    }, []);
 
+    return (
+        <Box sx={{
+            minHeight: '100vh',
+            minWidth: '100%',
+            background: '#111111'
+        }}>
+            <ThemeProvider theme={customerTheme}>
 
-      </ThemeProvider>
-    </Box>
-  );
+                {isAdmin === true ? <Navbar_Admin setIsAdmin={setIsAdmin} /> : <Navbar setIsAdmin={setIsAdmin} />}
+
+            </ThemeProvider>
+        </Box>
+    );
 }
 
 export default App;

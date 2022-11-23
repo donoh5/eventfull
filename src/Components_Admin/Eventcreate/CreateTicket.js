@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-
 import Modal from '@mui/material/Modal';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -50,7 +49,6 @@ function CreateTicket(props) {
     //Prevent Refresh
     function handleSubmit(e) {
         e.preventDefault();
-        console.log("create ticket");
         axios
             .post(`https://eventfull-backend.azurewebsites.net/ticketType`, ticket)
             .then(function ({ data }) {

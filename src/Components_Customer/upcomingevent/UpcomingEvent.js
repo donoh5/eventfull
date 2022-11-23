@@ -2,12 +2,11 @@ import React from 'react';
 import OneEvent from './OneEvent';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Container, TextField, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid';
+import { Box } from '@mui/material';
+
 const UpcomingEvent = (props) => {
   const [events, setEvents] = useState([]);
   useEffect(function () {
-    console.log("upcomingevent")
     axios
       .get(`https://eventfull-backend.azurewebsites.net/events`)
       .then(function ({ data }) {

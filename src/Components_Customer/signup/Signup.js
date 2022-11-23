@@ -36,7 +36,6 @@ function Signup() {
 
   // create new user
   const createUser = function () {
-    console.log("signup")
     axios
       .post(`https://eventfull-backend.azurewebsites.net/users`, user)
       .then(function ({ data }) {
@@ -78,7 +77,6 @@ function Signup() {
 
   // confirm user
   const confirmCode = function () {
-    console.log("signup")
     axios
       .put(
         `https://eventfull-backend.azurewebsites.net/confirmSignUp`,

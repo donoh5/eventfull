@@ -1,15 +1,10 @@
 import { useCallback } from 'react';
 import * as React from 'react';
 import { useState } from 'react';
-import { Link,useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Box, Container } from '@mui/system';
-import {
-  autocompleteClasses,
-  FormControl,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box } from '@mui/system';
+import { TextField,  Typography} from '@mui/material';
 import Button from '@mui/material/Button';
 
 function LoginAdmin(props) {
@@ -29,14 +24,13 @@ function LoginAdmin(props) {
   };
 
   const redirectLogin = useCallback(
-    () => navigate('/UpcomingEvent', { replace: true }),
+    () => navigate('/', { replace: true }),
     [navigate]
   );
 
   const loginUser = function () {
-    console.log("login");
     axios
-      .put(`https://eventfull-backend.azurewebsites.net/login`, user)
+      .put(`https://eventfull-backend.azurewebsites.net/loginAdmin`, user)
       .then(function ({ data }) {
         if (data.split(',')[0] != 'T') {
           alert('Invalid email or password');
@@ -44,9 +38,11 @@ function LoginAdmin(props) {
           props.setUserID(data.split(',')[1]);
           props.setUserName(data.split(',')[2]);
           props.setLogInStatus(true);
+          props.setIsAdmin(true);
           localStorage.setItem('userID', data.split(',')[1]);
           localStorage.setItem('userName', data.split(',')[2]);
           localStorage.setItem('logInTime', new Date().toString());
+          localStorage.setItem('isAdmin', true);
           console.log(data);
           redirectLogin();
         }
@@ -125,9 +121,7 @@ function LoginAdmin(props) {
           sx={{
             width: '100%',
             input: { fontSize: '1.2rem', padding: '0.7rem' },
-            pb: '2vh',
-             
-            
+            pb: '2vh'
           }}
         />
         {/* Log in */}
@@ -137,48 +131,7 @@ function LoginAdmin(props) {
         >
           <Typography>Login</Typography>
         </Button>
-        <Typography
-          sx={{
-            fontSize: { xs: '1ch', md: '1ch' },
-            pt: '1rem',
-            opacity: '0.7',
-          }}
-        >
-          By continuing past this page, you agree to the Terms of Use and
-          understand that information will be used as described in our Privacy
-          Policy.
-        </Typography>
       </Box>
-
-      {/* Sign up */}
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          marginTop: '1.5rem',
-        }}
-      >
-        <Typography sx={{ color: 'black', fontSize: '1.5ch', mr: '2ch' }}>
-          Don't have an account?
-        </Typography>
-        <Link to='/Signup' className='underline'>
-          <Typography sx={{ color: 'black', fontSize: '13px' }}>
-            Sign-up
-          </Typography>
-        </Link>
-      </Box>
-      {/* Forgot password */}
-      <Link to='/ResetPW'>
-        <Typography
-          sx={{
-            fontSize: '10px',
-            mb: '1.5rem',
-            mt: '1.5rem',
-          }}
-        >
-          Forgot Password?
-        </Typography>
-      </Link>
     </Box>
   );
 }

@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react'
-import { Link, Route, Routes } from 'react-router-dom'
+import { useState, useCallback } from 'react'
+import { Link, Route, Routes, useNavigate } from 'react-router-dom'
 import Events from '../Events/Events'
 import Eventcreate from '../Eventcreate/Eventcreate'
-import Login from '../login/LoginAdmin'
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -12,23 +11,18 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 
-
-function Navbar_Admin() {
+function Navbar_Admin(props) {
 
   const navlinks = [
     { title: "Events", cName: "nav-link", url: "/" },
-    { title: "Create Event", cName: "nav-link", url: "/Eventcreate" }
+    { title: "Create Event", cName: "nav-link", url: "/Eventcreate" },
+    { title: "Logout", cName: "nav-link", url: "/" }
   ]
   const [toggle, setToggle] = useState(false);
-  const onToggle = () => setToggle(!toggle);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [event, setEvent] = useState({});
   const [isEdit, setIsEdit] = useState(false)
 
@@ -44,13 +38,25 @@ function Navbar_Admin() {
     setEvent({});
   };
 
+  const handleLogout = () => {
+    redirectLogout();
+    localStorage.clear();
+    props.setIsAdmin(false);
+    window.location.reload();
+  };
+
+    // redirect to login page after signup
+    const navigate = useNavigate();
+    const redirectLogout = useCallback(
+      () => navigate('/', { replace: true }),
+      [navigate]
+    );
+
   return (
     <>
       <AppBar position="static">
         <Container maxWidth="xl" sx={{backgroundColor: 'black', boxShadow: "0px 2px 20px white"}}>
           <Toolbar disableGutters>
-            {/* Unsure how this actually works but this block is to format the fill screensize/desktopmode */}
-            {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />you can display an icon here or logo */}
             <Typography
               variant="h4"
               noWrap
@@ -102,7 +108,7 @@ function Navbar_Admin() {
                 {/* The mapping to the navback links and pages */}
                 {navlinks.map((item) => (
                   <Link className={item.cName} to={item.url} style={{textDecoration: 'none'}} 
-                  onClick={item.title === 'Create Event' ? handleCreate : null}>
+                  onClick={item.title === 'Logout' ? handleLogout : item.title === 'Create Event' ? handleCreate : null}>
                     <MenuItem onClick={handleCloseNavMenu}>
                       <Typography textAlign="center" sx={{color: 'black', }}>{item.title}</Typography>
                     </MenuItem>
@@ -113,7 +119,6 @@ function Navbar_Admin() {
             </Box>
 
             {/* Navbar for full screen */}
-            {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />you can display an icon here or logo */}
             <Typography
               variant="h5"
               noWrap
@@ -135,7 +140,8 @@ function Navbar_Admin() {
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {/* The mapping to the navback links and pages */}
               {navlinks.map((item) => (
-                <Link className={item.cName} to={item.url} style={{textDecoration: 'none'}}>
+                <Link className={item.cName} to={item.url} style={{textDecoration: 'none'}}
+                onClick={item.title === 'Logout' ? handleLogout : item.title === 'Create Event' ? handleCreate : null}>
                   <Button
                     onClick={handleCloseNavMenu}
                     sx={{ my: 3, mx: 1, color: 'white', display: 'block', fontSize: 'large' }}
@@ -146,9 +152,7 @@ function Navbar_Admin() {
               ))}
             </Box>
             <Box sx={{ flexGrow: 0 }}>
-              <Link className="LogOut" to='/Login'>
-              <Button sx={{ color: 'white', fontSize: 'large'}}>LogOut</Button>
-              </Link>
+                <Button sx={{ color: 'white', fontSize: 'large'}}>ADMIN</Button>
             </Box>
           </Toolbar>
         </Container>

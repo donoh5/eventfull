@@ -3,9 +3,8 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Box, Container } from '@mui/system';
-import { autocompleteClasses, FormControl, TextField, Typography} from '@mui/material';
-import CommonButton from '../../Components_Admin/common/CommonButton';
+import { Box} from '@mui/system';
+import {TextField, Typography} from '@mui/material';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
 
@@ -32,7 +31,6 @@ function Login(props) {
   );
 
   const loginUser = function () {
-    console.log("login")
     axios
       .put(`https://eventfull-backend.azurewebsites.net/login`, user)
       .then(function ({ data }) {
@@ -47,7 +45,6 @@ function Login(props) {
           localStorage.setItem('userID', data.split(',')[1]);
           localStorage.setItem('userName', data.split(',')[2]);
           localStorage.setItem('logInTime', new Date().toString());
-          
           setAlert(false);
           redirectLogin();
         }
@@ -103,7 +100,6 @@ function Login(props) {
           width: '30ch',
         }}
       >
-        {/* input boxees */}
         <TextField
           required
           id='outlined-required'
@@ -128,8 +124,6 @@ function Login(props) {
             width: '100%',
             input: { fontSize: '1.2rem', padding: '0.7rem' },
             pb: '2vh',
-
-
           }}
         />
         {alert ? <Alert severity='error' sx={{mb: '2ch', width: '100%'}}>Email or Password is Incorrect</Alert> : <></>}

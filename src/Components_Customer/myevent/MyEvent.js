@@ -2,8 +2,8 @@ import React from 'react';
 import OneMyEvent from './OneMyEvent';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Container, TextField, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid';
+import { Box, Container} from '@mui/material';
+
 
 const MyEvent = (props) => {
   const [events, setEvents] = useState([]);

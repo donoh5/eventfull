@@ -12,7 +12,6 @@ import MobileTickets from '../myevent/MobileTickets';
 import DesktopTickets from '../myevent/DesktopTickets';
 import LoginAdmin from '../login/LoginAdmin';
 import Checkout from '../checkout/Checkout';
-
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -22,18 +21,13 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import { shadows } from '@mui/system';
-import { Grid, SvgIcon } from '@mui/material';
+import { Grid } from '@mui/material';
 import Logo from '../details/Assets/EventFull-Logo.png';
 
-function Navbar() {
+function Navbar(props) {
   const navlinks = [
-    // { title: 'Art Gallery', cName: 'nav-link', url: '/Gallery' },
     { title: 'Upcoming Events', cName: 'nav-link', url: '/' },
     { title: 'Login', cName: 'nav-link', url: '/Login' },
   ];
@@ -41,7 +35,6 @@ function Navbar() {
   const navlinksLoggedIn = [
     { title: 'My Events', cName: 'nav-link', url: '/MyEvent' },
     { title: 'My Cart', cName: 'nav-link', url: '/MyCart' },
-    // { title: 'Art Gallery', cName: 'nav-link', url: '/Gallery' },
     { title: 'Upcoming Events', cName: 'nav-link', url: '/UpcomingEvent' },
     { title: 'Logout', cName: 'nav-link', url: '/Logout' },
   ];
@@ -309,24 +302,8 @@ function Navbar() {
                     justifyContent: 'right',
                   }}
                 >
-                  {/* <Box>
-                    <Link to='/ResetInfo' style={{ textDecoration: 'none' }}>
-                      <Button sx={{ color: 'white' }}>
-                        <Typography sx={{ fontSize: '2ch' }}>
-                          {username}
-                        </Typography>
-                      </Button>
-                    </Link>
-                  </Box> */}
                 </Grid>
               </Grid>
-
-              {/* Unsure how this actually works but this block is to format the fill screensize/desktopmode */}
-              {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-              {/* you can display an icon here or logo */}
-
-              {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
-              {/* you can display an icon here or logo */}
             </Toolbar>
           </Container>
         </AppBar>
@@ -551,13 +528,6 @@ function Navbar() {
                   <Box></Box>
                 </Grid>
               </Grid>
-
-              {/* Unsure how this actually works but this block is to format the fill screensize/desktopmode */}
-              {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-              {/* you can display an icon here or logo */}
-
-              {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
-              {/* you can display an icon here or logo */}
             </Toolbar>
           </Container>
         </AppBar>
@@ -596,6 +566,7 @@ function Navbar() {
                 setLogInStatus={setLogInStatus}
                 setUserLastName={setUserLastName}
                 setUserEmail={setUserEmail}
+                setIsAdmin={props.setIsAdmin}
               />
             }
           />

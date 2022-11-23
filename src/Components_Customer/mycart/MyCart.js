@@ -3,7 +3,7 @@ import axios from 'axios';
 import OneCart from './OneCart';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Divider, listClasses, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -13,7 +13,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 
 const MyCart = (props) => {
@@ -34,7 +33,7 @@ const MyCart = (props) => {
           setCart(data);
           return data;
         })
-        .then(function ({ data }) {
+        .then(function () {
           axios
             .post(
               `https://eventfull-backend.azurewebsites.net/cart-subtotal?userID=` +

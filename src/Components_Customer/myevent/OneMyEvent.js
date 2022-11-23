@@ -2,10 +2,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -15,7 +13,6 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import MobileStepper from '@mui/material/MobileStepper';
 import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
 import { useSwipeable } from 'react-swipeable';
 import SwipeableViews from 'react-swipeable-views-react-18-fix/lib/SwipeableViews';
 import { useTheme } from '@mui/material/styles';
@@ -27,7 +24,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -44,18 +40,12 @@ function OneMyEvent(props) {
   var date = new Date(props.item.date).toDateString();
   const [expanded, setExpanded] = React.useState(false);
 
-  const redirect = {
-    pathname: '/Details/' + props.item.eventID,
-    param1: props.item.eventID,
-  };
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   const [ticket, setTicket] = useState([]);
 
-  //axios to get AR codes (NEED TO CHANGE)
   useEffect(function () {
     console.log('one my event');
     axios
