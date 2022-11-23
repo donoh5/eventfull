@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import AppAdmin from './AppAdmin';
+import AppCustomer from './AppCustomer';
+import Paper from '@mui/material/Paper';
+import { ThemeProvider } from '@mui/material/styles';
+import { customerTheme } from './GlobalTheme';
+import { Box } from '@mui/system';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box sx={{
+      minHeight: '100vh', 
+      minWidth: '100%',
+      background: '#111111'}}>
+    <ThemeProvider theme={customerTheme}>
+
+      {/* <AppAdmin /> */}
+      <AppCustomer />
+
+
+      </ThemeProvider>
+    </Box>
   );
 }
 
