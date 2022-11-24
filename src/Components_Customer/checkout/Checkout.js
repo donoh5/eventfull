@@ -11,11 +11,13 @@ import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 import axios from 'axios';
+import Loading from './Loading';
 
 const steps = ['Payment address', 'Payment details', 'Review your order'];
 
 export default function Checkout(props) {
     const [activeStep, setActiveStep] = React.useState(0);
+    const [loading, setLoading] = React.useState(false);
 
     const handleNext = (e) => {
         e.preventDefault();
@@ -23,12 +25,13 @@ export default function Checkout(props) {
             setActiveStep(activeStep + 1);
         }
         else {
-            alert("Processing order");
+            setLoading(true);
             axios
                 .post(`https://eventfull-backend.azurewebsites.net/checkOut?userID=` + props.userID)
                 .then(function ({ data }) {
                     if (data) {
                         setOrderNum(data);
+                        setLoading(false);
                         setActiveStep(activeStep + 1);
                     }
                     else {
@@ -45,15 +48,20 @@ export default function Checkout(props) {
     };
 
     const getStepContent = (step) => {
-        switch (step) {
-            case 0:
-                return <AddressForm address={address} setAddress={setAddress} />;
-            case 1:
-                return <PaymentForm payment={payment} setPayment={setPayment} />;
-            case 2:
-                return <Review address={address} payment={payment} userID={props.userID} />;
-            default:
-                throw new Error('Unknown step');
+        if (loading === true) {
+            return <Loading />
+        }
+        else {
+            switch (step) {
+                case 0:
+                    return <AddressForm address={address} setAddress={setAddress} />;
+                case 1:
+                    return <PaymentForm payment={payment} setPayment={setPayment} />;
+                case 2:
+                    return <Review address={address} payment={payment} userID={props.userID} />;
+                default:
+                    throw new Error('Unknown step');
+            }
         }
     };
 
@@ -111,13 +119,15 @@ export default function Checkout(props) {
                                     </Button>
                                 )}
 
-                                <Button
-                                    type='submit'
-                                    variant="contained"
-                                    sx={{ mt: 3, ml: 1 }}
-                                >
-                                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                                </Button>
+                                {loading === false && (
+                                    <Button
+                                        type='submit'
+                                        variant="contained"
+                                        sx={{ mt: 3, ml: 1 }}
+                                    >
+                                        {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                                    </Button>
+                                )}
                             </Box>
                         </form>
 

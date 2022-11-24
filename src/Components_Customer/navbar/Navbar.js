@@ -24,7 +24,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { Grid } from '@mui/material';
-import Logo from '../details/Assets/EventFull-Logo.png';
+import Logo from '../../Assets/EventFull-Logo.png';
 
 function Navbar(props) {
   const navlinks = [
@@ -351,7 +351,7 @@ function Navbar(props) {
     );
   } else {
     return (
-      <Box sx={{ maxWidth: '100%' }}>
+      <Box sx={{ width: 'auto', height: 'auto'}}>
         <AppBar position='static'>
           <Container
             maxWidth='100%'
@@ -532,7 +532,7 @@ function Navbar(props) {
           </Container>
         </AppBar>
 
-        <Routes>
+        <Routes style={{height: '100vh', width: 'auto'}}>
           <Route
             exact
             path='/'
@@ -542,7 +542,7 @@ function Navbar(props) {
             path='/Details/:eventId'
             element={<Details eventID={eventID} logInStatus={logInStatus} />}
           />
-          <Route
+          <Route 
             path='/Login'
             element={
               <Login
@@ -550,7 +550,7 @@ function Navbar(props) {
                 setUserID={setUserID}
                 setLogInStatus={setLogInStatus}
                 setUserLastName={setUserLastName}
-                setUserEmail={setUserEmail}
+                setUserEmail={setUserEmail} 
               />
             }
           />

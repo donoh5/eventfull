@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import SelectTicket from './SelectTicket';
 import { useEffect } from 'react';
@@ -39,7 +39,6 @@ function Details(props) {
     var dictTickets = {};
     const [addedTicket, setAddedTicket] = useState(false);
     const [expanded, setExpanded] = useState(false);
-
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
@@ -55,7 +54,6 @@ function Details(props) {
                 setEventData(data);
                 var tempstringDate = new Date(data.date).toDateString();
                 setStringDate(tempstringDate);
-
                 // Getting Date Number & Month
                 var tempMonth = new Date(data.date).toDateString().split(' ');
                 setDateMon(tempMonth[1]);
@@ -65,7 +63,6 @@ function Details(props) {
             .catch(function (error) {
                 console.log();
             });
-
         console.log("details")
         axios
             .post(
@@ -81,9 +78,7 @@ function Details(props) {
     }, []);
 
     useEffect(function () {
-
     }, []);
-
     const list = function () {
         return eventTickets.map(function (res, i) {
             return (
@@ -98,7 +93,6 @@ function Details(props) {
 
     const addToCart = () => {
         const dictSize = Object.keys(dictTickets).length;
-        
         var i = 1;
         for (var key in dictTickets) {
             axios
@@ -126,7 +120,6 @@ function Details(props) {
 
     if (props.logInStatus) {
         return (
-            <>
                 <Box
                     sx={{
                         border: 'none',
@@ -135,21 +128,18 @@ function Details(props) {
                         pt: '5ch',
                         margin: 'auto',
                         marginBottom: { md: '1.5rem' },
-                    }}
-                >
-                    <Box sx={{ backgroundColor: '#111111' }}>
+                    }}>
+                    <Box >
                         <Stack
                             direction={{ xs: 'colum', md: 'row' }}
-                            spacing={{ xs: 1, sm: 2, md: 4 }}
-                        >
+                            spacing={{ xs: 1, sm: 2, md: 4 }}>
                             {/* Event Image */}
                             <div
                                 style={{
                                     display: 'flex',
                                     justifyContent: 'center',
                                     alignItems: 'center',
-                                }}
-                            >
+                                }}>
                                 <CardMedia
                                     sx={{
                                         maxWidth: { xs: '30rem', md: '60rem' },
@@ -160,7 +150,6 @@ function Details(props) {
                                     alt='Event Image'
                                 />
                             </div>
-
                             <Box>
                                 <CardContent>
                                     {/* Event detail */}
@@ -169,8 +158,7 @@ function Details(props) {
                                             display: 'flex',
                                             justifyContent: 'center',
                                             alignItems: 'center',
-                                        }}
-                                    >
+                                        }}>
                                         <Box sx={{ display: 'flex' }}>
                                             {/* Date */}
                                             <Box sx={{ color: 'white', marginRight: '0.25rem' }}>
@@ -178,8 +166,7 @@ function Details(props) {
                                                     sx={{
                                                         color: 'coral',
                                                         fontSize: '33px',
-                                                    }}
-                                                >
+                                                    }}>
                                                     {dateNum}
                                                 </Typography>
                                                 <Typography sx={{ textAlign: 'center', marginTop: 0 }}>
@@ -195,20 +182,17 @@ function Details(props) {
                                                     alignItems: 'center',
                                                     fontSize: '1.5rem',
                                                     color: 'white',
-                                                }}
-                                            >
+                                                }}>
                                                 {eventData.eventName}
                                             </Typography>
                                         </Box>
                                     </div>
-
                                     <Box
                                         style={{
                                             display: 'flex',
                                             justifyContent: 'center',
                                             alignItems: 'center',
-                                        }}
-                                    >
+                                        }}>
                                         <CardContent sx={{ marginTop: '1rem' }}>
                                             {/* Date Time Location */}
                                             <Typography
@@ -216,8 +200,7 @@ function Details(props) {
                                                     fontSize: '13px',
                                                     margin: '0.25 rem',
                                                     color: 'white',
-                                                }}
-                                            >
+                                                }}>
                                                 <Container sx={{ display: 'block' }}>
                                                     <Box sx={{ display: 'flex', marginBottom: '1rem' }}>
                                                         <DateRangeIcon
@@ -231,7 +214,6 @@ function Details(props) {
                                                             {stringDate}
                                                         </Box>
                                                     </Box>
-
                                                     <Box sx={{ display: 'flex', marginBottom: '1rem' }}>
                                                         <AccessTimeIcon
                                                             sx={{ color: 'coral', marginRight: '1rem' }}
@@ -243,7 +225,6 @@ function Details(props) {
                                                             Ends: {eventData.endTime}
                                                         </Box>
                                                     </Box>
-
                                                     <Box sx={{ display: 'flex' }}>
                                                         <LocationOnIcon
                                                             sx={{
@@ -266,7 +247,6 @@ function Details(props) {
                             </Box>
                         </Stack>
                     </Box>
-
                     <Box sx={{ backgroundColor: '#111111' }}>
                         <Box sx={{ textAlign: 'center', color: 'white' }}>
                             <Typography>More Details</Typography>
@@ -274,12 +254,10 @@ function Details(props) {
                                 expand={expanded}
                                 onClick={handleExpandClick}
                                 aria-expanded={expanded}
-                                aria-label='show more'
-                            >
+                                aria-label='show more'>
                                 <ExpandMoreIcon sx={{ color: 'white' }} />
                             </ExpandMore>
                         </Box>
-
                         <Box
                             style={{
                                 display: 'flex',
@@ -287,8 +265,7 @@ function Details(props) {
                                 alignItems: 'center',
                                 maxWidth: { xs: '30rem', md: '50rem' },
                                 color: 'white',
-                            }}
-                        >
+                            }}>
                             <Collapse
                                 in={expanded}
                                 collapsedSize={5}
@@ -296,41 +273,15 @@ function Details(props) {
                                     maxWidth: { xs: '30rem', md: '50rem' },
                                     marginX: { xs: '1.5rem', md: '3rem' },
                                     marginBottom: '2rem',
-                                }}
-                            >
+                                }}>
                                 <Typography sx={{ textAlign: 'justify' }}>
-                                    {eventData.eventDescription}Look If you had one shot, or one
-                                    opportunity To seize everything you ever wanted One moment
-                                    Would you capture it or just let it slip?Look If you had one
-                                    shot, or one opportunity To seize everything you ever wanted
-                                    One moment Would you capture it or just let it slip?Look If
-                                    you had one shot, or one opportunity To seize everything you
-                                    ever wanted One moment Would you capture it or just let it
-                                    slip?Look If you had one shot, or one opportunity To seize
-                                    everything you ever wanted One moment Would you capture it or
-                                    just let it slip?Look If you had one shot, or one opportunity
-                                    To seize everything you ever wanted One moment Would you
-                                    capture it or just let it slip?Look If you had one shot, or
-                                    one opportunity To seize everything you ever wanted One moment
-                                    Would you capture it or just let it slip?Look If you had one
-                                    shot, or one opportunity To seize everything you ever wanted
-                                    One moment Would you capture it or just let it slip?Look If
-                                    you had one shot, or one opportunity To seize everything you
-                                    ever wanted One moment Would you capture it or just let it
-                                    slip?Look If you had one shot, or one opportunity To seize
-                                    everything you ever wanted One moment Would you capture it or
-                                    just let it slip?Look If you had one shot, or one opportunity
-                                    To seize everything you ever wanted One moment Would you
-                                    capture it or just let it slip?Look If you had one shot, or
-                                    one opportunity To seize everything you ever wanted One moment
-                                    Would you capture it or just let it slip?
+                                    {eventData.eventDescription}
                                 </Typography>
                             </Collapse>
                         </Box>
                     </Box>
-
                     {/* Ticket */}
-                    <Container sx={{ backgroundColor: '#111111' }}>
+                    <Container >
                         <Box
                             sx={{
                                 '& button': { m: 1 },
@@ -343,48 +294,41 @@ function Details(props) {
                                 maxWidth: { xs: '15rem', md: '700px', md: '900px' },
                                 minWidth: '300px',
                                 paddingBottom: '2rem',
-                            }}
-                        >
+                            }}>
                             {list()}
                             <Button
                                 onClick={() => addToCart()}
                                 sx={{
                                     backgroundColor: 'black',
                                     color: 'white',
-                                }}
-                            >
+                                }}>
                                 Add to Cart
                             </Button>
                         </Box>
                     </Container>
                 </Box>
-            </>
         );
     } else {
         return (
-            <>
-                <Card
+                <Box
                     sx={{
                         border: 'none',
                         boxShadow: 'none',
                         maxWidth: { sx: '30', md: '60rem' },
                         margin: 'auto',
                         marginTop: { md: '1.5rem' },
-                    }}
-                >
-                    <Box sx={{ backgroundColor: '#111111' }}>
+                    }}>
+                    <Box >
                         <Stack
                             direction={{ xs: 'colum', md: 'row' }}
-                            spacing={{ xs: 1, sm: 2, md: 4 }}
-                        >
+                            spacing={{ xs: 1, sm: 2, md: 4 }}>
                             {/* Event Image */}
                             <div
                                 style={{
                                     display: 'flex',
                                     justifyContent: 'center',
                                     alignItems: 'center',
-                                }}
-                            >
+                                }}>
                                 <CardMedia
                                     sx={{
                                         maxWidth: { xs: '30rem', md: '60rem' },
@@ -395,7 +339,6 @@ function Details(props) {
                                     alt='Event Image'
                                 />
                             </div>
-
                             <Box>
                                 <CardContent>
                                     {/* Event detail */}
@@ -404,8 +347,7 @@ function Details(props) {
                                             display: 'flex',
                                             justifyContent: 'center',
                                             alignItems: 'center',
-                                        }}
-                                    >
+                                        }}>
                                         <Box sx={{ display: 'flex' }}>
                                             {/* Date */}
                                             <Box sx={{ color: 'white', marginRight: '0.25rem' }}>
@@ -413,8 +355,7 @@ function Details(props) {
                                                     sx={{
                                                         color: 'coral',
                                                         fontSize: '33px',
-                                                    }}
-                                                >
+                                                    }}>
                                                     {dateNum}
                                                 </Typography>
                                                 <Typography sx={{ textAlign: 'center', marginTop: 0 }}>
@@ -430,20 +371,17 @@ function Details(props) {
                                                     alignItems: 'center',
                                                     fontSize: '1.5rem',
                                                     color: 'white',
-                                                }}
-                                            >
+                                                }}>
                                                 {eventData.eventName}
                                             </Typography>
                                         </Box>
                                     </div>
-
                                     <Box
                                         style={{
                                             display: 'flex',
                                             justifyContent: 'center',
                                             alignItems: 'center',
-                                        }}
-                                    >
+                                        }}>
                                         <CardContent sx={{ marginTop: '1rem' }}>
                                             {/* Date Time Location */}
                                             <Typography
@@ -451,8 +389,7 @@ function Details(props) {
                                                     fontSize: '13px',
                                                     margin: '0.25 rem',
                                                     color: 'white',
-                                                }}
-                                            >
+                                                }}>
                                                 <Container sx={{ display: 'block' }}>
                                                     <Box sx={{ display: 'flex', marginBottom: '1rem' }}>
                                                         <DateRangeIcon
@@ -466,7 +403,6 @@ function Details(props) {
                                                             {stringDate}
                                                         </Box>
                                                     </Box>
-
                                                     <Box sx={{ display: 'flex', marginBottom: '1rem' }}>
                                                         <AccessTimeIcon
                                                             sx={{ color: 'coral', marginRight: '1rem' }}
@@ -478,7 +414,6 @@ function Details(props) {
                                                             Ends: {eventData.endTime}
                                                         </Box>
                                                     </Box>
-
                                                     <Box sx={{ display: 'flex' }}>
                                                         <LocationOnIcon
                                                             sx={{
@@ -501,20 +436,17 @@ function Details(props) {
                             </Box>
                         </Stack>
                     </Box>
-
-                    <Box sx={{ backgroundColor: '#111111' }}>
+                    <Box >
                         <Box sx={{ textAlign: 'center', color: 'white' }}>
                             <Typography>More Details</Typography>
                             <ExpandMore
                                 expand={expanded}
                                 onClick={handleExpandClick}
                                 aria-expanded={expanded}
-                                aria-label='show more'
-                            >
+                                aria-label='show more'>
                                 <ExpandMoreIcon sx={{ color: 'white' }} />
                             </ExpandMore>
                         </Box>
-
                         <Box
                             style={{
                                 display: 'flex',
@@ -522,8 +454,7 @@ function Details(props) {
                                 alignItems: 'center',
                                 maxWidth: { xs: '30rem', md: '50rem' },
                                 color: 'white',
-                            }}
-                        >
+                            }}>
                             <Collapse
                                 in={expanded}
                                 collapsedSize={5}
@@ -531,46 +462,18 @@ function Details(props) {
                                     maxWidth: { xs: '30rem', md: '50rem' },
                                     marginX: { xs: '1.5rem', md: '3rem' },
                                     marginBottom: '2rem',
-                                }}
-                            >
+                                }}>
                                 <Typography sx={{ textAlign: 'justify' }}>
-                                    {eventData.eventDescription}Look If you had one shot, or one
-                                    opportunity To seize everything you ever wanted One moment
-                                    Would you capture it or just let it slip?Look If you had one
-                                    shot, or one opportunity To seize everything you ever wanted
-                                    One moment Would you capture it or just let it slip?Look If
-                                    you had one shot, or one opportunity To seize everything you
-                                    ever wanted One moment Would you capture it or just let it
-                                    slip?Look If you had one shot, or one opportunity To seize
-                                    everything you ever wanted One moment Would you capture it or
-                                    just let it slip?Look If you had one shot, or one opportunity
-                                    To seize everything you ever wanted One moment Would you
-                                    capture it or just let it slip?Look If you had one shot, or
-                                    one opportunity To seize everything you ever wanted One moment
-                                    Would you capture it or just let it slip?Look If you had one
-                                    shot, or one opportunity To seize everything you ever wanted
-                                    One moment Would you capture it or just let it slip?Look If
-                                    you had one shot, or one opportunity To seize everything you
-                                    ever wanted One moment Would you capture it or just let it
-                                    slip?Look If you had one shot, or one opportunity To seize
-                                    everything you ever wanted One moment Would you capture it or
-                                    just let it slip?Look If you had one shot, or one opportunity
-                                    To seize everything you ever wanted One moment Would you
-                                    capture it or just let it slip?Look If you had one shot, or
-                                    one opportunity To seize everything you ever wanted One moment
-                                    Would you capture it or just let it slip?
+                                {eventData.eventDescription}
                                 </Typography>
                             </Collapse>
                         </Box>
                     </Box>
-
                     {/* Ticket */}
                     <Container
                         sx={{
-                            backgroundColor: '#111111',
                             paddingBottom: '2rem',
-                        }}
-                    >
+                        }}>
                         <Box
                             sx={{
                                 '& button': { m: 1 },
@@ -582,25 +485,17 @@ function Details(props) {
                                 marginX: 'auto',
                                 maxWidth: { xs: '15rem', md: '700px', md: '900px' },
                                 minWidth: '300px',
-                            }}
-                        >
+                            }}>
                             {list()}
-                            <Link to='/Login'>
-                                <Button
-                                    sx={{
-                                        backgroundColor: 'white',
-                                        color: 'black',
-                                    }}
-                                >
-                                    LogIn to Buy Tickets
+                            <Link to='/Login' style={{ textDecoration: 'none' }}>
+                                <Button sx={{width: '30ch', fontSize: '2ch'}}>
+                                    Log-In to Buy Tickets
                                 </Button>
                             </Link>
                         </Box>
                     </Container>
-                </Card>
-            </>
+                </Box>
         );
     }
 }
-
 export default Details;

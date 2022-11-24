@@ -43,7 +43,8 @@ function OneEvent(props) {
         marginX: 'auto',
         borderRadius: '5px',
         width: { md: '50vw' },
-        boxShadow: '1ch'
+        boxShadow: '1ch',
+        boxShadow: '5px 5px 5px 5px rgba(0, 0, 0, 0.5)',  
       }}
       onClick={changeEventID}
     >

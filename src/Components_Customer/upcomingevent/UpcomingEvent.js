@@ -29,9 +29,10 @@ const UpcomingEvent = (props) => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        height: 'auto'
       }}
     >
-      <Box sx={{ paddingX: '3.5rem', borderRadius: '5px', border: '2px black'}}>{list()}</Box>
+      <Box sx={{borderRadius: '5px', border: '2px black', height: 'auto'}}>{list()}</Box>
     </Box>
   );
 };
