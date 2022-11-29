@@ -41,10 +41,17 @@ function Signup() {
     axios
       .post(`https://eventfull-backend.azurewebsites.net/users`, user)
       .then(function ({ data }) {
-        setUserConfirm({
-          ...userConfirm,
-          userID: data.userID,
-        });
+        if(data){
+            handleOpen();
+            setUserConfirm({
+              ...userConfirm,
+              userID: data.userID,
+            });
+        }
+        else{
+            handleClose();
+            alert("Email already exists");
+        }
       })
       .catch(function (error) {
         console.log('');
@@ -61,7 +68,6 @@ function Signup() {
     e.preventDefault();
     //check
     if (user.password == password2) {
-      handleOpen();
       createUser();
     } else {
       alert('Passwords do not match');

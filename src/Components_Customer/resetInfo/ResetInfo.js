@@ -9,9 +9,9 @@ function ResetInfo(props) {
 
     //user object
     const [user, setUser] = useState({
-      firstName: props.username,
-      lastName: props.userLastName,
-      email: props.userEmail
+        firstName: props.username,
+        lastName: props.userLastName,
+        email: props.userEmail
     });
 
     useEffect(function () {
@@ -22,7 +22,13 @@ function ResetInfo(props) {
             })
             .catch(function (error) {
                 console.log(error)
-            })
+            });
+
+        if (localStorage.getItem('logInTime') != null &&
+            Date.parse(localStorage.getItem('logInTime')) >=
+            new Date().setMinutes(new Date().getMinutes() - 10)) {
+            localStorage.setItem('logInTime', new Date().toString());
+        }
     }, []);
 
     const [password, setPassword] = useState();

@@ -72,6 +72,12 @@ function Details(props) {
             .catch(function (error) {
                 console.log();
             });
+
+        if (localStorage.getItem('logInTime') != null &&
+            Date.parse(localStorage.getItem('logInTime')) >=
+            new Date().setMinutes(new Date().getMinutes() - 10)) {
+            localStorage.setItem('logInTime', new Date().toString());
+        }
     }, []);
 
     useEffect(function () {
@@ -118,379 +124,379 @@ function Details(props) {
     if (props.logInStatus) {
         return (
             <Box
-            sx={{
-                border: 'none',
-                boxShadow: 'none',
-                maxWidth: { sx: '30', md: '60rem' },
-                margin: 'auto',
-                marginTop: { md: '1.5rem' },
-            }}>
-                    <Box >
-                        <Stack
-                            direction={{ xs: 'colum', md: 'row' }}
-                            spacing={{ xs: 1, sm: 2, md: 4 }}>
-                            {/* Event Image */}
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                }}>
-                                <CardMedia
-                                    sx={{
-                                        maxWidth: { xs: '30rem', md: '60rem' },
-                                        marginBottom: '1rem',
-                                    }}
-                                    component='img'
-                                    src={`data:image/png;base64,${eventData.eventImage}`}
-                                    alt='Event Image'
-                                />
-                            </div>
-                            <Box>
-                                <CardContent>
-                                    {/* Event detail */}
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                        }}>
-                                        <Box sx={{ display: 'flex' }}>
-                                            {/* Date */}
-                                            <Box sx={{ color: 'white', marginRight: '0.25rem' }}>
-                                                <Typography
-                                                    sx={{
-                                                        color: 'coral',
-                                                        fontSize: '33px',
-                                                    }}>
-                                                    {dateNum}
-                                                </Typography>
-                                                <Typography sx={{ textAlign: 'center', marginTop: 0 }}>
-                                                    {dateMon}
-                                                </Typography>
-                                            </Box>
-                                            {/* Title */}
-                                            <Typography
-                                                sx={{
-                                                    marginLeft: '1rem',
-                                                    display: 'flex',
-                                                    justifyContent: 'center',
-                                                    alignItems: 'center',
-                                                    fontSize: '1.5rem',
-                                                    color: 'white',
-                                                }}>
-                                                {eventData.eventName}
-                                            </Typography>
-                                        </Box>
-                                    </div>
-                                    <Box
-                                        style={{
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                        }}>
-                                        <CardContent sx={{ marginTop: '1rem' }}>
-                                            {/* Date Time Location */}
-                                            <Typography
-                                                sx={{
-                                                    fontSize: '13px',
-                                                    margin: '0.25 rem',
-                                                    color: 'white',
-                                                }}>
-                                                <Container sx={{ display: 'block' }}>
-                                                    <Box sx={{ display: 'flex', marginBottom: '1rem' }}>
-                                                        <DateRangeIcon
-                                                            sx={{
-                                                                color: 'coral',
-                                                                marginRight: '1rem',
-                                                            }}
-                                                        />
-                                                        <Box>
-                                                            <Typography>Date</Typography>
-                                                            {stringDate}
-                                                        </Box>
-                                                    </Box>
-                                                    <Box sx={{ display: 'flex', marginBottom: '1rem' }}>
-                                                        <AccessTimeIcon
-                                                            sx={{ color: 'coral', marginRight: '1rem' }}
-                                                        />
-                                                        <Box>
-                                                            <Typography>Time</Typography>
-                                                            Starts: {eventData.startTime}
-                                                            <br />
-                                                            Ends: {eventData.endTime}
-                                                        </Box>
-                                                    </Box>
-                                                    <Box sx={{ display: 'flex' }}>
-                                                        <LocationOnIcon
-                                                            sx={{
-                                                                color: 'coral',
-                                                                marginRight: '1rem',
-                                                            }}
-                                                        />
-                                                        <Box>
-                                                            <Typography>Location</Typography>
-                                                            {eventData.locationName}
-                                                            <br />
-                                                            {eventData.eventLocation}
-                                                        </Box>
-                                                    </Box>
-                                                </Container>
-                                            </Typography>
-                                        </CardContent>
-                                    </Box>
-                                </CardContent>
-                            </Box>
-                        </Stack>
-                    </Box>
-                    <Box sx={{ backgroundColor: '#111111' }}>
-                        <Box sx={{ textAlign: 'center', color: 'white' }}>
-                            <Typography>More Details</Typography>
-                            <ExpandMore
-                                expand={expanded}
-                                onClick={handleExpandClick}
-                                aria-expanded={expanded}
-                                aria-label='show more'>
-                                <ExpandMoreIcon sx={{ color: 'white' }} />
-                            </ExpandMore>
-                        </Box>
-                        <Box
+                sx={{
+                    border: 'none',
+                    boxShadow: 'none',
+                    maxWidth: { sx: '30', md: '60rem' },
+                    margin: 'auto',
+                    marginTop: { md: '1.5rem' },
+                }}>
+                <Box >
+                    <Stack
+                        direction={{ xs: 'colum', md: 'row' }}
+                        spacing={{ xs: 1, sm: 2, md: 4 }}>
+                        {/* Event Image */}
+                        <div
                             style={{
                                 display: 'flex',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                maxWidth: { xs: '30rem', md: '50rem' },
-                                color: 'white',
                             }}>
-                            <Collapse
-                                in={expanded}
-                                collapsedSize={5}
+                            <CardMedia
                                 sx={{
-                                    maxWidth: { xs: '30rem', md: '50rem' },
-                                    marginX: { xs: '1.5rem', md: '3rem' },
-                                    marginBottom: '2rem',
-                                }}>
-                                <Typography sx={{ textAlign: 'justify' }}>
-                                    {eventData.eventDescription}
-                                </Typography>
-                            </Collapse>
+                                    maxWidth: { xs: '30rem', md: '60rem' },
+                                    marginBottom: '1rem',
+                                }}
+                                component='img'
+                                src={`data:image/png;base64,${eventData.eventImage}`}
+                                alt='Event Image'
+                            />
+                        </div>
+                        <Box>
+                            <CardContent>
+                                {/* Event detail */}
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                    }}>
+                                    <Box sx={{ display: 'flex' }}>
+                                        {/* Date */}
+                                        <Box sx={{ color: 'white', marginRight: '0.25rem' }}>
+                                            <Typography
+                                                sx={{
+                                                    color: 'coral',
+                                                    fontSize: '33px',
+                                                }}>
+                                                {dateNum}
+                                            </Typography>
+                                            <Typography sx={{ textAlign: 'center', marginTop: 0 }}>
+                                                {dateMon}
+                                            </Typography>
+                                        </Box>
+                                        {/* Title */}
+                                        <Typography
+                                            sx={{
+                                                marginLeft: '1rem',
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                fontSize: '1.5rem',
+                                                color: 'white',
+                                            }}>
+                                            {eventData.eventName}
+                                        </Typography>
+                                    </Box>
+                                </div>
+                                <Box
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                    }}>
+                                    <CardContent sx={{ marginTop: '1rem' }}>
+                                        {/* Date Time Location */}
+                                        <Typography
+                                            sx={{
+                                                fontSize: '13px',
+                                                margin: '0.25 rem',
+                                                color: 'white',
+                                            }}>
+                                            <Container sx={{ display: 'block' }}>
+                                                <Box sx={{ display: 'flex', marginBottom: '1rem' }}>
+                                                    <DateRangeIcon
+                                                        sx={{
+                                                            color: 'coral',
+                                                            marginRight: '1rem',
+                                                        }}
+                                                    />
+                                                    <Box>
+                                                        <Typography>Date</Typography>
+                                                        {stringDate}
+                                                    </Box>
+                                                </Box>
+                                                <Box sx={{ display: 'flex', marginBottom: '1rem' }}>
+                                                    <AccessTimeIcon
+                                                        sx={{ color: 'coral', marginRight: '1rem' }}
+                                                    />
+                                                    <Box>
+                                                        <Typography>Time</Typography>
+                                                        Starts: {eventData.startTime}
+                                                        <br />
+                                                        Ends: {eventData.endTime}
+                                                    </Box>
+                                                </Box>
+                                                <Box sx={{ display: 'flex' }}>
+                                                    <LocationOnIcon
+                                                        sx={{
+                                                            color: 'coral',
+                                                            marginRight: '1rem',
+                                                        }}
+                                                    />
+                                                    <Box>
+                                                        <Typography>Location</Typography>
+                                                        {eventData.locationName}
+                                                        <br />
+                                                        {eventData.eventLocation}
+                                                    </Box>
+                                                </Box>
+                                            </Container>
+                                        </Typography>
+                                    </CardContent>
+                                </Box>
+                            </CardContent>
                         </Box>
-                    </Box>
-                    {/* Ticket */}
-                    <Container >
-                        <Box
-                            sx={{
-                                '& button': { m: 1 },
-                                color: 'white',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                flexDirection: 'column',
-                                marginX: 'auto',
-                                maxWidth: { xs: '15rem', md: '700px', md: '900px' },
-                                minWidth: '300px',
-                                paddingBottom: '2rem',
-                            }}>
-                            {list()}
-                            <Button
-                                onClick={() => addToCart()}
-                                sx={{
-                                    backgroundColor: 'black',
-                                    color: 'white',
-                                }}>
-                                Add to Cart
-                            </Button>
-                        </Box>
-                    </Container>
+                    </Stack>
                 </Box>
+                <Box sx={{ backgroundColor: '#111111' }}>
+                    <Box sx={{ textAlign: 'center', color: 'white' }}>
+                        <Typography>More Details</Typography>
+                        <ExpandMore
+                            expand={expanded}
+                            onClick={handleExpandClick}
+                            aria-expanded={expanded}
+                            aria-label='show more'>
+                            <ExpandMoreIcon sx={{ color: 'white' }} />
+                        </ExpandMore>
+                    </Box>
+                    <Box
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            maxWidth: { xs: '30rem', md: '50rem' },
+                            color: 'white',
+                        }}>
+                        <Collapse
+                            in={expanded}
+                            collapsedSize={5}
+                            sx={{
+                                maxWidth: { xs: '30rem', md: '50rem' },
+                                marginX: { xs: '1.5rem', md: '3rem' },
+                                marginBottom: '2rem',
+                            }}>
+                            <Typography sx={{ textAlign: 'justify' }}>
+                                {eventData.eventDescription}
+                            </Typography>
+                        </Collapse>
+                    </Box>
+                </Box>
+                {/* Ticket */}
+                <Container >
+                    <Box
+                        sx={{
+                            '& button': { m: 1 },
+                            color: 'white',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexDirection: 'column',
+                            marginX: 'auto',
+                            maxWidth: { xs: '15rem', md: '700px', md: '900px' },
+                            minWidth: '300px',
+                            paddingBottom: '2rem',
+                        }}>
+                        {list()}
+                        <Button
+                            onClick={() => addToCart()}
+                            sx={{
+                                backgroundColor: 'black',
+                                color: 'white',
+                            }}>
+                            Add to Cart
+                        </Button>
+                    </Box>
+                </Container>
+            </Box>
         );
     } else {
         return (
-                <Box
-                    sx={{
-                        border: 'none',
-                        boxShadow: 'none',
-                        maxWidth: { sx: '30', md: '60rem' },
-                        margin: 'auto',
-                        marginTop: { md: '1.5rem' },
-                    }}>
-                    <Box >
-                        <Stack
-                            direction={{ xs: 'colum', md: 'row' }}
-                            spacing={{ xs: 1, sm: 2, md: 4 }}>
-                            {/* Event Image */}
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                }}>
-                                <CardMedia
-                                    sx={{
-                                        maxWidth: { xs: '30rem', md: '60rem' },
-                                        marginBottom: '1rem',
-                                    }}
-                                    component='img'
-                                    src={`data:image/png;base64,${eventData.eventImage}`}
-                                    alt='Event Image'
-                                />
-                            </div>
-                            <Box>
-                                <CardContent>
-                                    {/* Event detail */}
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                        }}>
-                                        <Box sx={{ display: 'flex' }}>
-                                            {/* Date */}
-                                            <Box sx={{ color: 'white', marginRight: '0.25rem' }}>
-                                                <Typography
-                                                    sx={{
-                                                        color: 'coral',
-                                                        fontSize: '33px',
-                                                    }}>
-                                                    {dateNum}
-                                                </Typography>
-                                                <Typography sx={{ textAlign: 'center', marginTop: 0 }}>
-                                                    {dateMon}
-                                                </Typography>
-                                            </Box>
-                                            {/* Title */}
-                                            <Typography
-                                                sx={{
-                                                    marginLeft: '1rem',
-                                                    display: 'flex',
-                                                    justifyContent: 'center',
-                                                    alignItems: 'center',
-                                                    fontSize: '1.5rem',
-                                                    color: 'white',
-                                                }}>
-                                                {eventData.eventName}
-                                            </Typography>
-                                        </Box>
-                                    </div>
-                                    <Box
-                                        style={{
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                        }}>
-                                        <CardContent sx={{ marginTop: '1rem' }}>
-                                            {/* Date Time Location */}
-                                            <Typography
-                                                sx={{
-                                                    fontSize: '13px',
-                                                    margin: '0.25 rem',
-                                                    color: 'white',
-                                                }}>
-                                                <Container sx={{ display: 'block' }}>
-                                                    <Box sx={{ display: 'flex', marginBottom: '1rem' }}>
-                                                        <DateRangeIcon
-                                                            sx={{
-                                                                color: 'coral',
-                                                                marginRight: '1rem',
-                                                            }}
-                                                        />
-                                                        <Box>
-                                                            <Typography>Date</Typography>
-                                                            {stringDate}
-                                                        </Box>
-                                                    </Box>
-                                                    <Box sx={{ display: 'flex', marginBottom: '1rem' }}>
-                                                        <AccessTimeIcon
-                                                            sx={{ color: 'coral', marginRight: '1rem' }}
-                                                        />
-                                                        <Box>
-                                                            <Typography>Time</Typography>
-                                                            Starts: {eventData.startTime}
-                                                            <br />
-                                                            Ends: {eventData.endTime}
-                                                        </Box>
-                                                    </Box>
-                                                    <Box sx={{ display: 'flex' }}>
-                                                        <LocationOnIcon
-                                                            sx={{
-                                                                color: 'coral',
-                                                                marginRight: '1rem',
-                                                            }}
-                                                        />
-                                                        <Box>
-                                                            <Typography>Location</Typography>
-                                                            {eventData.locationName}
-                                                            <br />
-                                                            {eventData.eventLocation}
-                                                        </Box>
-                                                    </Box>
-                                                </Container>
-                                            </Typography>
-                                        </CardContent>
-                                    </Box>
-                                </CardContent>
-                            </Box>
-                        </Stack>
-                    </Box>
-                    <Box >
-                        <Box sx={{ textAlign: 'center', color: 'white' }}>
-                            <Typography>More Details</Typography>
-                            <ExpandMore
-                                expand={expanded}
-                                onClick={handleExpandClick}
-                                aria-expanded={expanded}
-                                aria-label='show more'>
-                                <ExpandMoreIcon sx={{ color: 'white' }} />
-                            </ExpandMore>
-                        </Box>
-                        <Box
+            <Box
+                sx={{
+                    border: 'none',
+                    boxShadow: 'none',
+                    maxWidth: { sx: '30', md: '60rem' },
+                    margin: 'auto',
+                    marginTop: { md: '1.5rem' },
+                }}>
+                <Box >
+                    <Stack
+                        direction={{ xs: 'colum', md: 'row' }}
+                        spacing={{ xs: 1, sm: 2, md: 4 }}>
+                        {/* Event Image */}
+                        <div
                             style={{
                                 display: 'flex',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                maxWidth: { xs: '30rem', md: '50rem' },
-                                color: 'white',
                             }}>
-                            <Collapse
-                                in={expanded}
-                                collapsedSize={5}
+                            <CardMedia
                                 sx={{
-                                    maxWidth: { xs: '30rem', md: '50rem' },
-                                    marginX: { xs: '1.5rem', md: '3rem' },
-                                    marginBottom: '2rem',
-                                }}>
-                                <Typography sx={{ textAlign: 'justify' }}>
-                                {eventData.eventDescription}
-                                </Typography>
-                            </Collapse>
+                                    maxWidth: { xs: '30rem', md: '60rem' },
+                                    marginBottom: '1rem',
+                                }}
+                                component='img'
+                                src={`data:image/png;base64,${eventData.eventImage}`}
+                                alt='Event Image'
+                            />
+                        </div>
+                        <Box>
+                            <CardContent>
+                                {/* Event detail */}
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                    }}>
+                                    <Box sx={{ display: 'flex' }}>
+                                        {/* Date */}
+                                        <Box sx={{ color: 'white', marginRight: '0.25rem' }}>
+                                            <Typography
+                                                sx={{
+                                                    color: 'coral',
+                                                    fontSize: '33px',
+                                                }}>
+                                                {dateNum}
+                                            </Typography>
+                                            <Typography sx={{ textAlign: 'center', marginTop: 0 }}>
+                                                {dateMon}
+                                            </Typography>
+                                        </Box>
+                                        {/* Title */}
+                                        <Typography
+                                            sx={{
+                                                marginLeft: '1rem',
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                fontSize: '1.5rem',
+                                                color: 'white',
+                                            }}>
+                                            {eventData.eventName}
+                                        </Typography>
+                                    </Box>
+                                </div>
+                                <Box
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                    }}>
+                                    <CardContent sx={{ marginTop: '1rem' }}>
+                                        {/* Date Time Location */}
+                                        <Typography
+                                            sx={{
+                                                fontSize: '13px',
+                                                margin: '0.25 rem',
+                                                color: 'white',
+                                            }}>
+                                            <Container sx={{ display: 'block' }}>
+                                                <Box sx={{ display: 'flex', marginBottom: '1rem' }}>
+                                                    <DateRangeIcon
+                                                        sx={{
+                                                            color: 'coral',
+                                                            marginRight: '1rem',
+                                                        }}
+                                                    />
+                                                    <Box>
+                                                        <Typography>Date</Typography>
+                                                        {stringDate}
+                                                    </Box>
+                                                </Box>
+                                                <Box sx={{ display: 'flex', marginBottom: '1rem' }}>
+                                                    <AccessTimeIcon
+                                                        sx={{ color: 'coral', marginRight: '1rem' }}
+                                                    />
+                                                    <Box>
+                                                        <Typography>Time</Typography>
+                                                        Starts: {eventData.startTime}
+                                                        <br />
+                                                        Ends: {eventData.endTime}
+                                                    </Box>
+                                                </Box>
+                                                <Box sx={{ display: 'flex' }}>
+                                                    <LocationOnIcon
+                                                        sx={{
+                                                            color: 'coral',
+                                                            marginRight: '1rem',
+                                                        }}
+                                                    />
+                                                    <Box>
+                                                        <Typography>Location</Typography>
+                                                        {eventData.locationName}
+                                                        <br />
+                                                        {eventData.eventLocation}
+                                                    </Box>
+                                                </Box>
+                                            </Container>
+                                        </Typography>
+                                    </CardContent>
+                                </Box>
+                            </CardContent>
                         </Box>
-                    </Box>
-                    {/* Ticket */}
-                    <Container
-                        sx={{
-                            paddingBottom: '2rem',
-                        }}>
-                        <Box
-                            sx={{
-                                '& button': { m: 1 },
-                                color: 'white',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                flexDirection: 'column',
-                                marginX: 'auto',
-                                maxWidth: { xs: '15rem', md: '700px', md: '900px' },
-                                minWidth: '300px',
-                            }}>
-                            {list()}
-                            <Link to='/Login' style={{ textDecoration: 'none' }}>
-                                <Button sx={{width: '30ch', fontSize: '2ch'}}>
-                                    Log-In to Buy Tickets
-                                </Button>
-                            </Link>
-                        </Box>
-                    </Container>
+                    </Stack>
                 </Box>
+                <Box >
+                    <Box sx={{ textAlign: 'center', color: 'white' }}>
+                        <Typography>More Details</Typography>
+                        <ExpandMore
+                            expand={expanded}
+                            onClick={handleExpandClick}
+                            aria-expanded={expanded}
+                            aria-label='show more'>
+                            <ExpandMoreIcon sx={{ color: 'white' }} />
+                        </ExpandMore>
+                    </Box>
+                    <Box
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            maxWidth: { xs: '30rem', md: '50rem' },
+                            color: 'white',
+                        }}>
+                        <Collapse
+                            in={expanded}
+                            collapsedSize={5}
+                            sx={{
+                                maxWidth: { xs: '30rem', md: '50rem' },
+                                marginX: { xs: '1.5rem', md: '3rem' },
+                                marginBottom: '2rem',
+                            }}>
+                            <Typography sx={{ textAlign: 'justify' }}>
+                                {eventData.eventDescription}
+                            </Typography>
+                        </Collapse>
+                    </Box>
+                </Box>
+                {/* Ticket */}
+                <Container
+                    sx={{
+                        paddingBottom: '2rem',
+                    }}>
+                    <Box
+                        sx={{
+                            '& button': { m: 1 },
+                            color: 'white',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexDirection: 'column',
+                            marginX: 'auto',
+                            maxWidth: { xs: '15rem', md: '700px', md: '900px' },
+                            minWidth: '300px',
+                        }}>
+                        {list()}
+                        <Link to='/Login' style={{ textDecoration: 'none' }}>
+                            <Button sx={{ width: '30ch', fontSize: '2ch' }}>
+                                Log-In to Buy Tickets
+                            </Button>
+                        </Link>
+                    </Box>
+                </Container>
+            </Box>
         );
     }
 }
