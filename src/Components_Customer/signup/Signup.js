@@ -67,7 +67,7 @@ function Signup() {
   const handleSignUp = (e) => {
     e.preventDefault();
     //check
-    if (user.password == password2) {
+    if (user.password === password2) {
       createUser();
     } else {
       alert('Passwords do not match');

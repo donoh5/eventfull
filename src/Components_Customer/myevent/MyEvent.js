@@ -40,7 +40,7 @@ const MyEvent = (props) => {
             );
         });
     };
-    if (list.length < 1) {
+    if (events.length <  1) {
         return (
 
             <Typography sx={{
@@ -52,7 +52,7 @@ const MyEvent = (props) => {
                 width: '80%',
                 ml: 'auto',
                 mr: 'auto'
-            }}>Oh No!<br /> Looks like you dont have any tickets for any events!</Typography>
+            }}>Oh No!<br /> Looks like you don't have any tickets for any events!</Typography>
         );
     }
     else {

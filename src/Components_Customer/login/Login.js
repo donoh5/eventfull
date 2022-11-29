@@ -34,7 +34,7 @@ function Login(props) {
     axios
       .put(`https://eventfull-backend.azurewebsites.net/login`, user)
       .then(function ({ data }) {
-        if (data.split(',')[0] != 'T') {
+        if (data.split(',')[0] !== 'T') {
           setAlert(true);
         } else {
           props.setUserID(data.split(',')[1]);

@@ -4,8 +4,6 @@ import Navbar_Admin from './Components_Admin/Navbar/Navbar_Admin';
 import { ThemeProvider } from '@mui/material/styles';
 import { customerTheme } from './GlobalTheme';
 import { Box } from '@mui/system';
-import backImage from './Assets/EventFull-Background.png';
-
 
 function App() {
   const [isAdmin, setIsAdmin] = React.useState(false);
