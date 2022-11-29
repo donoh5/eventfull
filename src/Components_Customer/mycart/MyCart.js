@@ -72,10 +72,8 @@ const MyCart = (props) => {
           currentDiscount
       )
       .then(function (res, i) {
-        console.log(res);
         if (res.data === false) {
           alert('Invalid discount code');
-          console.log(res);
         } else {
           document.location.reload(true);
         }

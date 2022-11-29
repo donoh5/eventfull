@@ -16,124 +16,133 @@ import Loading from './Loading';
 const steps = ['Payment address', 'Payment details', 'Review your order'];
 
 export default function Checkout(props) {
-    const [activeStep, setActiveStep] = React.useState(0);
-    const [loading, setLoading] = React.useState(false);
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [loading, setLoading] = React.useState(false);
 
-    const handleNext = (e) => {
-        e.preventDefault();
-        if (activeStep !== steps.length - 1) {
+  const handleNext = (e) => {
+    e.preventDefault();
+    if (activeStep !== steps.length - 1) {
+      setActiveStep(activeStep + 1);
+    } else {
+      setLoading(true);
+      axios
+        .post(
+          `https://eventfull-backend.azurewebsites.net/checkOut?userID=` +
+            props.userID
+        )
+        .then(function ({ data }) {
+          if (data) {
+            setOrderNum(data);
+            setLoading(false);
             setActiveStep(activeStep + 1);
-        }
-        else {
-            setLoading(true);
-            axios
-                .post(`https://eventfull-backend.azurewebsites.net/checkOut?userID=` + props.userID)
-                .then(function ({ data }) {
-                    if (data) {
-                        setOrderNum(data);
-                        setLoading(false);
-                        setActiveStep(activeStep + 1);
-                    }
-                    else {
-                        alert("Checkout failed!")
-                    }
-                }).catch(function (error) {
-                    console.log(error);
-                })
-        }
-    };
+          } else {
+            alert('Checkout failed!');
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  };
 
-    const handleBack = () => {
-        setActiveStep(activeStep - 1);
-    };
+  const handleBack = () => {
+    setActiveStep(activeStep - 1);
+  };
 
-    const getStepContent = (step) => {
-        if (loading === true) {
-            return <Loading />
-        }
-        else {
-            switch (step) {
-                case 0:
-                    return <AddressForm address={address} setAddress={setAddress} />;
-                case 1:
-                    return <PaymentForm payment={payment} setPayment={setPayment} />;
-                case 2:
-                    return <Review address={address} payment={payment} userID={props.userID} />;
-                default:
-                    throw new Error('Unknown step');
-            }
-        }
-    };
+  const getStepContent = (step) => {
+    if (loading === true) {
+      return <Loading />;
+    } else {
+      switch (step) {
+        case 0:
+          return <AddressForm address={address} setAddress={setAddress} />;
+        case 1:
+          return <PaymentForm payment={payment} setPayment={setPayment} />;
+        case 2:
+          return (
+            <Review address={address} payment={payment} userID={props.userID} />
+          );
+        default:
+          throw new Error('Unknown step');
+      }
+    }
+  };
 
-    const [orderNum, setOrderNum] = React.useState("");
+  const [orderNum, setOrderNum] = React.useState('');
 
-    const [address, setAddress] = React.useState({
-        firstName: '',
-        lastName: '',
-        address1: '',
-        address2: '',
-        city: '',
-        state: '',
-        zip: '',
-        country: '',
-    });
+  const [address, setAddress] = React.useState({
+    firstName: '',
+    lastName: '',
+    address1: '',
+    address2: '',
+    city: '',
+    state: '',
+    zip: '',
+    country: '',
+  });
 
-    const [payment, setPayment] = React.useState({
-        cardName: '',
-        cardNumber: '',
-        expDate: '',
-        cvv: '',
-    });
+  const [payment, setPayment] = React.useState({
+    cardName: '',
+    cardNumber: '',
+    expDate: '',
+    cvv: '',
+  });
 
-    return (
-        <Container component="main" maxWidth="sm" sx={{ mb: 4, marginTop: 15 }}>
-            <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-                <Typography component="h1" variant="h4" align="center">
-                    Checkout
-                </Typography>
-                <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
-                    {steps.map((label) => (
-                        <Step key={label}>
-                            <StepLabel>{label}</StepLabel>
-                        </Step>
-                    ))}
-                </Stepper>
-                {activeStep === steps.length ? (
-                    <React.Fragment>
-                        <Typography variant="h5" gutterBottom>
-                            Thank you for your order.
-                        </Typography>
-                        <Typography variant="subtitle1">
-                            Your order number is {orderNum}. We have emailed your order
-                            confirmation with PDF tickets to your email address.
-                        </Typography>
-                    </React.Fragment>
-                ) : (
-                    <React.Fragment>
-                        <form onSubmit={handleNext}>
-                            {getStepContent(activeStep)}
-                            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                {activeStep !== 0 && (
-                                    <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                                        Back
-                                    </Button>
-                                )}
-
-                                {loading === false && (
-                                    <Button
-                                        type='submit'
-                                        variant="contained"
-                                        sx={{ mt: 3, ml: 1 }}
-                                    >
-                                        {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                                    </Button>
-                                )}
-                            </Box>
-                        </form>
-
-                    </React.Fragment>
+  return (
+    <Container
+      component='main'
+      maxWidth='sm'
+      sx={{ marginTop: 5, paddingBottom: '1rem' }}
+    >
+      <Paper
+        variant='outlined'
+        sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
+      >
+        <Typography component='h1' variant='h4' align='center'>
+          Checkout
+        </Typography>
+        <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+        {activeStep === steps.length ? (
+          <React.Fragment>
+            <Typography variant='h5' gutterBottom>
+              Thank you for your order.
+            </Typography>
+            <Typography variant='subtitle1'>
+              Your order number is {orderNum}. We have emailed your order
+              confirmation with PDF tickets to your email address.
+            </Typography>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <form onSubmit={handleNext}>
+              {getStepContent(activeStep)}
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                {activeStep !== 0 && (
+                  <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                    Back
+                  </Button>
                 )}
-            </Paper>
-        </Container>
-    );
+
+                {loading === false && (
+                  <Button
+                    type='submit'
+                    variant='contained'
+                    sx={{ mt: 3, ml: 1 }}
+                  >
+                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                  </Button>
+                )}
+              </Box>
+            </form>
+          </React.Fragment>
+        )}
+      </Paper>
+    </Container>
+  );
 }

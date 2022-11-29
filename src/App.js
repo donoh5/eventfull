@@ -6,6 +6,7 @@ import { customerTheme } from './GlobalTheme';
 import { Box } from '@mui/system';
 import backImage from './Assets/EventFull-Background.png';
 
+
 function App() {
   const [isAdmin, setIsAdmin] = React.useState(false);
 
@@ -18,7 +19,7 @@ function App() {
 
   return (
     <Box style={{
-      backgroundImage: `url(${backImage})`,
+      backgroundColor: '#111111',
       minHeight: '100vh',
       backgroundSize: "100%, auto",
       backgroundRepeat: 'repeat-y'
@@ -26,7 +27,7 @@ function App() {
       <ThemeProvider theme={customerTheme}>
 
         {isAdmin === true ? <Navbar_Admin setIsAdmin={setIsAdmin} /> : <Navbar setIsAdmin={setIsAdmin} />}
-
+        {/* <Navbar_Admin/> */}
       </ThemeProvider>
     </Box>
   );

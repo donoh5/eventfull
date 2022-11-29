@@ -2,7 +2,7 @@ import React from 'react';
 import OneMyEvent from './OneMyEvent';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Container} from '@mui/material';
+import { Box, Container, Typography} from '@mui/material';
 
 
 const MyEvent = (props) => {
@@ -10,7 +10,7 @@ const MyEvent = (props) => {
 
   //need to change this axios
   useEffect(function () {
-    console.log("myevent")
+
     axios
       .post(
         `https://eventfull-backend.azurewebsites.net/myEvent?userID=` +
@@ -36,7 +36,23 @@ const MyEvent = (props) => {
       );
     });
   };
+if(list.length < 1)
+{
+  return(
 
+      <Typography sx={{fontSize: {xs: '3ch', md: '10ch'},
+        textDecorationLine: 'underline',
+        color: 'white',
+        textAlign:'center',
+        pt: {xs: '4ch', md: '2ch'},
+        width: '80%',
+        ml: 'auto',
+        mr: 'auto'
+      }}>Oh No!<br/> Looks like you dont have any tickets for any events!</Typography>
+  );
+}
+else
+{
   return (
     <Container
       maxWidth={false}
@@ -49,6 +65,8 @@ const MyEvent = (props) => {
       <Box>{list()}</Box>
     </Container>
   );
+}
+
 };
 
 export default MyEvent;

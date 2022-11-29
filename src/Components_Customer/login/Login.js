@@ -80,7 +80,6 @@ function Login(props) {
       <Typography
         variant='h5'
         sx={{
-          color: 'black',
           textAlign: 'center',
           align: 'center',
           marginBottom: '1rem',

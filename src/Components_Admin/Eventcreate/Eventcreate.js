@@ -99,7 +99,6 @@ function Eventcreate(props) {
  
     const submitEvent = () => {
         if (props.isEdit === false) {
-            console.log("create event");
             axios
                 .post(`https://eventfull-backend.azurewebsites.net/createEvent`, event)
                 .then(function ({ data }) {
@@ -115,7 +114,6 @@ function Eventcreate(props) {
         }
         // isEdit === true
         else {
-            console.log("create event");
             axios
                 .put(`https://eventfull-backend.azurewebsites.net/updateEvent`, event)
                 .then(function ({ data }) {

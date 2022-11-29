@@ -36,10 +36,13 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
+
+
+
 function OneMyEvent(props) {
   var date = new Date(props.item.date).toDateString();
   const [expanded, setExpanded] = React.useState(false);
-
+  const [emptyEvent, setEmptyEvent] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -47,20 +50,19 @@ function OneMyEvent(props) {
   const [ticket, setTicket] = useState([]);
 
   useEffect(function () {
-    console.log('one my event');
     axios
       .post(
         `https://eventfull-backend.azurewebsites.net/getQRPerEvent?eventID=` +
-          props.item.eventID +
-          `&userID=` +
-          props.userID
+        props.item.eventID +
+        `&userID=` +
+        props.userID
       )
       .then(function ({ data }) {
         setTicket(data);
-        console.log(data);
       })
       .catch(function (error) {
         console.log('');
+
       });
   }, []);
 
@@ -82,191 +84,204 @@ function OneMyEvent(props) {
     preventDefaultTouchmoveEvent: true,
     trackMouse: true,
   });
+  if (ticket == null) {
+    return (
 
-  return (
-    <>
-      {/* For Desktop Interface */}
-      <Card
-        sx={{
-          display: { xs: 'none', md: 'inherit' },
-          marginY: { xs: '3.5rem', md: '4rem' },
-          marginX: 'auto',
-          borderRadius: '5px',
-          width: { md: '50vw' },
-          boxShadow: '1ch',
-        }}
-      >
-        {/* Event Image */}
-        <CardMedia
-          sx={{ maxHeight: 300 }}
-          component='img'
-          src={`data:image/png;base64,${props.item.eventImage}`}
-          alt='Event Image'
-        />
-        {/* Event Details */}
-        <CardContent sx={{ backgroundColor: '#495057', color: 'white' }}>
-          <Typography sx={{ fontSize: '1.3rem', fontWeight: '500' }}>
-            {props.item.eventName}
-          </Typography>
-          <Typography
-            sx={{
-              display: 'block',
-              fontSize: '0.85rem',
-              marginBottom: '.5rem',
-            }}
-          >
-            {date} | {props.item.locationName}
-          </Typography>
-          <Typography sx={{ display: 'inline', fontSize: '0.9rem' }}>
-            {' '}
-            View My Tickets
-          </Typography>
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label='show more'
-          >
-            <ExpandMoreIcon />
-          </ExpandMore>
-          <Collapse in={expanded} timeout='auto' unmountOnExit>
-            {/* anything in here will be shown in the collapsable area */}
-            <CardContent>
-              <TableContainer sx={{ pb: '5vh' }}>
-                <Table
-                  sx={{ minWidth: 650, fontSize: '2vw' }}
-                  size='small'
-                  aria-label='a dense table'
+      <Box>
+        <Typography sx={{color: 'white'}}>fdsadsa</Typography>
+      </Box>
+    );
+  }
+  else {
+    return (
+
+      <>
+        {/* For Desktop Interface */}
+        <Card
+          sx={{
+            display: { xs: 'none', md: 'inherit' },
+            marginY: { xs: '3.5rem', md: '4rem' },
+            marginX: 'auto',
+            borderRadius: '5px',
+            width: { md: '50vw' },
+            boxShadow: '1ch',
+          }}
+        >
+          {/* Event Image */}
+          <CardMedia
+            sx={{ maxHeight: 300 }}
+            component='img'
+            src={`data:image/png;base64,${props.item.eventImage}`}
+            alt='Event Image'
+          />
+          {/* Event Details */}
+          <CardContent sx={{ backgroundColor: '#495057', color: 'white' }}>
+            <Typography sx={{ fontSize: '1.3rem', fontWeight: '500' }}>
+              {props.item.eventName}
+            </Typography>
+            <Typography
+              sx={{
+                display: 'block',
+                fontSize: '0.85rem',
+                marginBottom: '.5rem',
+              }}
+            >
+              {date} | {props.item.locationName}
+            </Typography>
+            <Typography sx={{ display: 'inline', fontSize: '0.9rem' }}>
+              {' '}
+              View My Tickets
+            </Typography>
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label='show more'
+            >
+              <ExpandMoreIcon />
+            </ExpandMore>
+            <Collapse in={expanded} timeout='auto' unmountOnExit>
+              {/* anything in here will be shown in the collapsable area */}
+              <CardContent>
+                <TableContainer sx={{ pb: '5vh' }}>
+                  <Table
+                    sx={{ minWidth: 650, fontSize: '2vw' }}
+                    size='small'
+                    aria-label='a dense table'
+                  >
+                    <TableHead>
+                      <TableRow sx={{}}>
+                        <TableCell align='left'>Ticket Type</TableCell>
+                        <TableCell align='left'>Ticket ID</TableCell>
+                        <TableCell align='center'></TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {ticket.map(function (res, i) {
+                        return <DesktopTickets ticket={res} />;
+                      })}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </CardContent>
+            </Collapse>
+          </CardContent>
+        </Card>
+
+        {/* -------------------------------------------------------- */}
+
+        {/* For mobile interface */}
+        <Card
+          sx={{
+            display: { xs: 'inherit', md: 'none' },
+            marginY: '3.5rem',
+            marginX: 'auto',
+            borderRadius: '5px',
+            // width: '40rem',
+            maxWidth: '25rem',
+          }}
+        >
+          {/* Event Image */}
+          <CardMedia
+            onClick={handleOpen}
+            sx={{ maxHeight: 200 }}
+            component='img'
+            src={`data:image/png;base64,${props.item.eventImage}`}
+            alt='Event Image'
+          />
+          {/* Event Details */}
+          <CardContent sx={{ backgroundColor: '#495057', color: 'white' }}>
+            <Typography sx={{ fontSize: '1.3rem', fontWeight: '500' }}>
+              {props.item.eventName}
+            </Typography>
+            <Typography
+              sx={{
+                display: 'inline',
+                fontSize: '0.85rem',
+              }}
+            >
+              {date} | {props.item.locationName}
+            </Typography>
+            <Typography
+              sx={{
+                marginTop: '0.75rem',
+                textAlign: 'center',
+                fontSize: '0.5rem',
+              }}
+            >
+              Click for QR Code
+            </Typography>
+          </CardContent>
+          <div>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby='modal-modal-title'
+              aria-describedby='modal-modal-description'
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Box sx={{ maxWidth: 400, flexGrow: 1, backgroundColor: 'white' }}>
+                <Paper
+                  square
+                  elevation={0}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    height: 50,
+                    pl: 2,
+                    bgcolor: 'background.default',
+                  }}
                 >
-                  <TableHead>
-                    <TableRow sx={{}}>
-                      <TableCell align='left'>Ticket Type</TableCell>
-                      <TableCell align='left'>Ticket ID</TableCell>
-                      <TableCell align='center'></TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {ticket.map(function (res, i) {
-                      return <DesktopTickets ticket={res} />;
-                    })}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </CardContent>
-          </Collapse>
-        </CardContent>
-      </Card>
-
-      {/* -------------------------------------------------------- */}
-
-      {/* For mobile interface */}
-      <Card
-        sx={{
-          display: { xs: 'inherit', md: 'none' },
-          marginY: '3.5rem',
-          marginX: 'auto',
-          borderRadius: '5px',
-          // width: '40rem',
-          maxWidth: '25rem',
-        }}
-      >
-        {/* Event Image */}
-        <CardMedia
-          onClick={handleOpen}
-          sx={{ maxHeight: 200 }}
-          component='img'
-          src={`data:image/png;base64,${props.item.eventImage}`}
-          alt='Event Image'
-        />
-        {/* Event Details */}
-        <CardContent sx={{ backgroundColor: '#495057', color: 'white' }}>
-          <Typography sx={{ fontSize: '1.3rem', fontWeight: '500' }}>
-            {props.item.eventName}
-          </Typography>
-          <Typography
-            sx={{
-              display: 'inline',
-              fontSize: '0.85rem',
-            }}
-          >
-            {date} | {props.item.locationName}
-          </Typography>
-          <Typography
-            sx={{
-              marginTop: '0.75rem',
-              textAlign: 'center',
-              fontSize: '0.5rem',
-            }}
-          >
-            Click for QR Code
-          </Typography>
-        </CardContent>
-        <div>
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby='modal-modal-title'
-            aria-describedby='modal-modal-description'
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Box sx={{ maxWidth: 400, flexGrow: 1, backgroundColor: 'white' }}>
-              <Paper
-                square
-                elevation={0}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  height: 50,
-                  pl: 2,
-                  bgcolor: 'background.default',
-                }}
-              >
-                <Typography sx={{ color: 'black' }}>
-                  {props.item.eventName}
+                  <Typography sx={{ color: 'black' }}>
+                    {props.item.eventName}
+                  </Typography>
+                  <Typography sx={{ color: 'black', display: 'flex', ml: '30%' }}>
+                    {props.userName}
+                  </Typography>
+                </Paper>
+                <SwipeableViews
+                  axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                  index={activeStep}
+                  onChangeIndex={handleStepChange}
+                  enableMouseEvents
+                >
+                  {ticket.map(function (res, i) {
+                    return <MobileTickets ticket={res} />;
+                  })}
+                </SwipeableViews>
+                <Typography
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  Ticket {activeStep + 1} / {maxSteps}
                 </Typography>
-                <Typography sx={{ color: 'black', display: 'flex', ml: '30%' }}>
-                  {props.userName}
-                </Typography>
-              </Paper>
-              <SwipeableViews
-                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                index={activeStep}
-                onChangeIndex={handleStepChange}
-                enableMouseEvents
-              >
-                {ticket.map(function (res, i) {
-                  return <MobileTickets ticket={res} />;
-                })}
-              </SwipeableViews>
-              <Typography
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                Ticket {activeStep + 1} / {maxSteps}
-              </Typography>
-              <MobileStepper
-                steps={maxSteps}
-                position='static'
-                activeStep={activeStep}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              />
-            </Box>
-          </Modal>
-        </div>
-      </Card>
-    </>
-  );
+                <MobileStepper
+                  steps={maxSteps}
+                  position='static'
+                  activeStep={activeStep}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                />
+              </Box>
+            </Modal>
+          </div>
+        </Card>
+      </>
+
+
+
+    );
+  }
 }
 
 export default OneMyEvent;

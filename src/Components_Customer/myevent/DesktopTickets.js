@@ -10,7 +10,6 @@ function DesktopTickets(props) {
     const [ticketDesc, setTicketDesc] = useState('');
 
     useEffect(function(){
-        console.log("desktop tickets")
       axios
         .post(`https://eventfull-backend.azurewebsites.net/ticketDesc?ticketTypeID=` + props.ticket.ticketTypeID)
         .then(function({data}){
@@ -22,7 +21,6 @@ function DesktopTickets(props) {
       }, [])
 
       const sendTicket = function(){
-        console.log("desktop tickets")
         axios
           .post(`https://eventfull-backend.azurewebsites.net/sendEmail?ticketID=` + props.ticket.ticketID)
           .then(function({data}){

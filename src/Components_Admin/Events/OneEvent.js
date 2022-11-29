@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CommonButton from '../common/CommonButton';
 import { Container} from '@mui/system';
+import { Button } from '@mui/material';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -37,39 +38,39 @@ function OneEvent(props) {
 
   return (
     <Card
-      sx={{
-        marginY: '4rem',
-        marginX: 'auto',
-        minWidth: '40rem',
-        width: '40rem',
-      }}
+    sx={{
+      marginY: { xs: '3.5rem', md: '4rem' },
+      marginX: 'auto',
+      borderRadius: '5px',
+      width: { md: '50vw' },
+      boxShadow: '1ch',
+      boxShadow: '5px 5px 5px 5px rgba(0, 0, 0, 0.5)', 
+      backgroundColor: '#495057', 
+      color: 'white'
+    }}
       onClick={changeEventID}
     >
-      <Container
-        sx={{ display: 'flex', justifyContent: 'space-between' }}
-        style={{ padding: '0px' }}
-      >
+      
         <CardHeader
           title={props.item.eventName}
-          subheader={date}
-          sx={{ color: 'black', display: ' inline-block' }}
+          subheader={<Typography sx={{color: 'white'}}>{date}</Typography>}
+          sx={{ display: ' inline-block' }}
         />
         <Link style={{ textDecoration: 'none' }} to='/EventEdit'>
-          <CommonButton sx={{ margin: 1 }} variant='outlined' size='medium'>
+          <Button sx={{ margin: 1, marginTop: 2, float: 'right' }} variant='contained' size='large'>
             Edit
-          </CommonButton>
+          </Button>
         </Link>
-      </Container>
-
+     
       <CardMedia
-        sx={{ maxHeight: 100 }}
+        sx={{ maxHeight: 300 ,}}
         component='img'
         src={`data:image/png;base64,${props.item.eventImage}`}
         alt='Event Image'
       />
-      <CardContent>
+      <CardContent sx={{ backgroundColor: '#495057', color: 'white'}}>
         <CardActions disableSpacing>
-          <Typography variant='body1' color='text.primary'>
+          <Typography sx={{ fontSize: '1.3rem', color: 'white', fontWeight: '500'}}  variant='body1' color='text.primary'>
             {props.item.locationName}
           </Typography>
           <ExpandMore
@@ -83,7 +84,7 @@ function OneEvent(props) {
         </CardActions>
         <Collapse in={expanded} timeout='auto' unmountOnExit>
           {/* anything in here will be shown in the collapsable area */}
-          <CardContent>
+          <CardContent >
             {props.item.eventName}
             <br></br>
             {props.item.locationName}

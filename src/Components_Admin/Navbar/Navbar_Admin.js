@@ -13,6 +13,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
+import { Grid } from '@mui/material';
+import Logo from '../../Assets/EventFull-Logo.png'
 
 function Navbar_Admin(props) {
 
@@ -54,117 +56,206 @@ function Navbar_Admin(props) {
 
   return (
     <>
-      <AppBar position="static">
-        <Container maxWidth="xl" sx={{backgroundColor: 'black', boxShadow: "0px 2px 20px white"}}>
-          <Toolbar disableGutters>
-            <Typography
-              variant="h4"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'Arial',
-                fontWeight: 700,
-                letterSpacing: '.2rem',
-                color: 'white',
-                textDecoration: 'none',
-              }}
-            >
-              EventFull
-            </Typography>
+      <Box sx={{ maxWidth: '100%' }}>
+        <AppBar position='static'>
+          <Container
+            maxWidth='100%'
+            style={{
+              paddingLeft: '0px',
+              paddingRight: '0px',
+              maxWidth: '100%',
+            }}
+            sx={{
+              backgroundColor: 'black',
+              boxShadow: '0px 0.5px 15px #778da9',
+              height: { xs: '3.5rem', md: '5rem' },
+            }}
+          >
+            <Toolbar disableGutters>
+              <Grid
+                container
+                sx={{ display: { xs: 'none', md: 'flex' }, marginX: '1rem' }}
+              >
+                <Grid
+                  item
+                  xs={2}
+                  sx={{
+                    display: 'flex',
+                    alignItem: 'center',
+                    m: 'auto',
+                  }}
+                >
+                  <Link to='/' style={{ textDecoration: 'none' }}>
+                    <img
+                      alt='Logo'
+                      src={Logo}
+                      width={180}
+                      style={{ position: 'relative' }}
+                    />
+                  </Link>
+                </Grid>
 
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              {/* This block minimizes the navbar opens and make it into a menu bar when screen is smaller/mobile */}
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
+                <Grid item xs={8}>
+                  <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    {/* The mapping to the navback links and pages */}
+                    {navlinks.map((item) => (
+                  <Link className={item.cName} to={item.url} style={{textDecoration: 'none'}} 
+                  onClick={item.title === 'Logout' ? handleLogout : item.title === 'Create Event' ? handleCreate : null}>
+                    <MenuItem onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center" sx={{color: 'white', fontSize: '3ch' }}>{item.title}</Typography>
+                    </MenuItem>
+                  </Link>
+                    ))}
+                  </Box>
+                </Grid>
+                <Grid item xs={2} sx={{ m: 'auto' }}>
+                  <Box>
+                   
+                      <Button
+                        sx={{
+                          color: 'white',
+                          fontSize: 'small',
+                          float: 'right',
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontSize: '2ch',
+                          }}
+                        >
+                          Admin
+                        </Typography>
+                      </Button>
+                   
+                  </Box>
+                </Grid>
+              </Grid>
+
+              {/* Mobile Size */}
+              <Grid
+                container
                 sx={{
-                  display: { xs: 'block', md: 'none' },
+                  marginX: '0.25rem',
+                  display: {
+                    xs: 'flex',
+                    md: 'none',
+                  },
                 }}
               >
-                {/* The mapping to the navback links and pages */}
-                {navlinks.map((item) => (
+                <Grid
+                  item
+                  xs={2.5}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: ' left',
+                  }}
+                >
+                  <Box>
+                    <IconButton
+                      size='small'
+                      aria-label='account of current user'
+                      aria-controls='menu-appbar'
+                      aria-haspopup='true'
+                      onClick={handleOpenNavMenu}
+                      color='inherit'
+                    >
+                      <MenuIcon sx={{ fontSize: '3ch' }} />
+                    </IconButton>
+                    {/* This block minimizes the navbar opens and make it into a menu bar when screen is smaller/mobile */}
+                    <Menu
+                      id='menu-appbar'
+                      anchorEl={anchorElNav}
+                      anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                      }}
+                      keepMounted
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'left',
+                      }}
+                      open={Boolean(anchorElNav)}
+                      onClose={handleCloseNavMenu}
+                      sx={{
+                        display: { xs: 'flex', md: 'none' },
+                      }}
+                    >
+                    
+                        <Typography
+                          sx={{
+                            fontSize: '2ch',
+                            color: 'black',
+                            marginLeft: '1rem',
+                            textDecoration: 'underline',
+                          }}
+                        >
+                        
+                        </Typography>
+                     
+                      {/* The mapping to the navback links and pages */}
+                      {navlinks.map((item) => (
                   <Link className={item.cName} to={item.url} style={{textDecoration: 'none'}} 
                   onClick={item.title === 'Logout' ? handleLogout : item.title === 'Create Event' ? handleCreate : null}>
                     <MenuItem onClick={handleCloseNavMenu}>
                       <Typography textAlign="center" sx={{color: 'black', }}>{item.title}</Typography>
                     </MenuItem>
                   </Link>
-
-                ))}
-              </Menu>
-            </Box>
-
-            {/* Navbar for full screen */}
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'Arial',
-                fontWeight: 700,
-                letterSpacing: '.2rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              EventFull
-            </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {/* The mapping to the navback links and pages */}
-              {navlinks.map((item) => (
-                <Link className={item.cName} to={item.url} style={{textDecoration: 'none'}}
-                onClick={item.title === 'Logout' ? handleLogout : item.title === 'Create Event' ? handleCreate : null}>
-                  <Button
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 3, mx: 1, color: 'white', display: 'block', fontSize: 'large' }}
-                  >
-                    {item.title}
-                  </Button>
-                </Link>
-              ))}
-            </Box>
-            <Box sx={{ flexGrow: 0 }}>
-                <Button sx={{ color: 'white', fontSize: 'large'}}>ADMIN</Button>
-            </Box>
-          </Toolbar>
-        </Container>
-      </AppBar>
-
-      <Routes>
+                      ))}
+                    </Menu>
+                  </Box>
+                </Grid>
+                <Grid
+                  item
+                  xs={7}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: ' center',
+                  }}
+                >
+                  <Link to='/' style={{ textDecoration: 'none' }}>
+                    <img
+                      alt='Logo'
+                      src={Logo}
+                      width={150}
+                      style={{ position: 'relative' }}
+                    />
+                  </Link>
+                </Grid>
+                <Grid
+                  item
+                  xs={2.5}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'right',
+                  }}
+                >
+                  <Typography
+                          sx={{
+                            fontSize: '1ch',
+                            marginRight: 1
+                          }}
+                        >
+                          ADMIN
+                        </Typography>
+                </Grid>
+              </Grid>
+            </Toolbar>
+          </Container>
+        </AppBar>
+        <Routes>
+         
+                                        
         <Route path='/' element={<Events setEvent={setEvent}/>} />
         <Route path='Eventcreate' element={<Eventcreate isEdit={isEdit} event={event} setIsEdit={setIsEdit} setEvent={setEvent}/>} />
         <Route path='EventEdit' element={<Eventcreate isEdit={true} event={event}/>}/>
-      </Routes>
+        </Routes>
+      </Box> 
     </>
   )
 }
 
 export default Navbar_Admin
+

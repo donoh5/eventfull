@@ -26,7 +26,6 @@ function EventDiscounts(props) {
     const [update, setUpdate] = useState(false);
 
     useEffect(function () {
-        console.log("event discount");
         axios
             .post(`https://eventfull-backend.azurewebsites.net/discountsPerEvent?eventID=` + props.eventID)
             .then(function ({ data }) {

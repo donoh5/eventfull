@@ -32,7 +32,7 @@ function LoginAdmin(props) {
     axios
       .put(`https://eventfull-backend.azurewebsites.net/loginAdmin`, user)
       .then(function ({ data }) {
-        if (data.split(',')[0] != 'T') {
+        if (data.split(',')[0] !== 'T') {
           alert('Invalid email or password');
         } else {
           props.setUserID(data.split(',')[1]);
@@ -43,7 +43,6 @@ function LoginAdmin(props) {
           localStorage.setItem('userName', data.split(',')[2]);
           localStorage.setItem('logInTime', new Date().toString());
           localStorage.setItem('isAdmin', true);
-          console.log(data);
           redirectLogin();
         }
       })

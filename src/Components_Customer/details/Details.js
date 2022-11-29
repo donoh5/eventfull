@@ -5,7 +5,6 @@ import SelectTicket from './SelectTicket';
 import { useEffect } from 'react';
 import Container from '@mui/material/Container';
 import { Typography } from '@mui/material';
-import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { Box } from '@mui/system';
@@ -44,7 +43,6 @@ function Details(props) {
     };
 
     useEffect(function () {
-        console.log("details")
         axios
             .post(
                 `https://eventfull-backend.azurewebsites.net/event?eventID=` +
@@ -63,7 +61,6 @@ function Details(props) {
             .catch(function (error) {
                 console.log();
             });
-        console.log("details")
         axios
             .post(
                 `https://eventfull-backend.azurewebsites.net/getTickets?eventID=` +
@@ -120,15 +117,14 @@ function Details(props) {
 
     if (props.logInStatus) {
         return (
-                <Box
-                    sx={{
-                        border: 'none',
-                        boxShadow: 'none',
-                        maxWidth: { sx: '30', md: '60rem' },
-                        pt: '5ch',
-                        margin: 'auto',
-                        marginBottom: { md: '1.5rem' },
-                    }}>
+            <Box
+            sx={{
+                border: 'none',
+                boxShadow: 'none',
+                maxWidth: { sx: '30', md: '60rem' },
+                margin: 'auto',
+                marginTop: { md: '1.5rem' },
+            }}>
                     <Box >
                         <Stack
                             direction={{ xs: 'colum', md: 'row' }}

@@ -25,6 +25,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { Grid } from '@mui/material';
 import Logo from '../../Assets/EventFull-Logo.png';
+import ChangePW from '../resetPW/ChangePW';
 
 function Navbar(props) {
   const navlinks = [
@@ -346,6 +347,12 @@ function Navbar(props) {
           <Route path='/MobileTickets' element={<MobileTickets />} />
           <Route path='/DesktopTickets' element={<DesktopTickets />} />
           <Route path='/Checkout' element={<Checkout userID={userID} />} />
+          <Route
+            path='/ResetPwd/:userID'
+            element={
+              <ChangePW />
+            }
+          />
         </Routes>
       </Box>
     );
@@ -568,6 +575,12 @@ function Navbar(props) {
                 setUserEmail={setUserEmail}
                 setIsAdmin={props.setIsAdmin}
               />
+            }
+          />
+          <Route
+            path='/ResetPwd/:userID'
+            element={
+              <ChangePW />
             }
           />
         </Routes>

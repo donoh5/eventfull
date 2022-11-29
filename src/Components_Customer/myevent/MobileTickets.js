@@ -7,7 +7,6 @@ function MobileTickets(props) {
   const [ticketDesc, setTicketDesc] = useState('');
 
   useEffect(function(){
-    console.log("mobile tickets")
     axios
       .post(`https://eventfull-backend.azurewebsites.net/ticketDesc?ticketTypeID=` + props.ticket.ticketTypeID)
       .then(function({data}){

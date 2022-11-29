@@ -2,11 +2,13 @@ import React, { useCallback } from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import {Card, CardContent, Container, TextField, Typography,} from '@mui/material';
+import { Card, CardContent, Container, TextField, Typography, } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import CountdownTimer from './CountdownTimer';
 import { Box } from '@mui/system';
-import CommonButton from '../../Components_Admin/common/CommonButton';
+
+import Button from '@mui/material/Button';
+
 function Signup() {
   // user object for creating new user
   const [user, setUser] = useState({
@@ -103,48 +105,44 @@ function Signup() {
   );
 
   return (
-    <Container>
-      <Box bgcolor="white"
+    <Box>
+      <Box
         component='form'
         sx={{
-          '& .MuiTextField-root': {
-            m: 1.25,
-            width: '15rem',
-          },
-          '& .MuiInputBase-root': {
-            height: '2.5rem',
-            fontSize: '13px',
-          },
-          '& button': { m: 1 },
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           flexDirection: 'column',
-          paddingBottom: '10vh',
-          paddingTop: '3vh',
-          marginY: '4rem',
+          paddingBottom: { xs: '2ch', md: '5vh' },
+          paddingTop: { xs: '2ch', md: '5vh' },
+          pl: '0',
+          pr: '0',
+          marginY: { xs: '4ch', md: '10vh' },
           marginX: 'auto',
-          border: 1,
+          border: '5px solid',
           borderColor: 'black',
-          maxWidth: { xs: '15rem', md: '700px', lg: '900px' },
-          minWidth: '300px',
-          boxShadow: '10',
+          borderRadius: '25px',
+          width: { xs: '100%', sm: '40vw' },
+          maxWidth: '60ch',
+          minWidth: { sm: '50ch' },
+          height: '100%',
+          backgroundColor: 'white'
         }}
       >
-        <form>
-          <Typography
-            variant='h5'
-            sx={{
-              color: 'black',
-              textAlign: 'center',
-              align: 'center',
-              marginBottom: '1.5rem',
-            }}
-          >
-            Create An Account
-          </Typography>
-          {/* input boxees */}
-          <Box sx={{ display: 'grid' }}>
+
+        <Typography sx={{ fontSize: '4ch', pb: '2ch' }}>
+          Create An Account
+        </Typography>
+        {/* input boxees */}
+        <Box component='form'
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            width: '30ch',
+          }}>
+          <form>
             <TextField
               required
               id='outlined-required'
@@ -152,6 +150,11 @@ function Signup() {
               type='text'
               name='email'
               onChange={handleChange}
+              sx={{
+                width: '100%',
+                input: { fontSize: '1.2rem', padding: '0.7rem' },
+                pb: '2vh',
+              }}
             />
 
             <TextField
@@ -161,6 +164,11 @@ function Signup() {
               type='password'
               name='password'
               onChange={handleChange}
+              sx={{
+                width: '100%',
+                input: { fontSize: '1.2rem', padding: '0.7rem' },
+                pb: '2vh',
+              }}
             />
 
             <TextField
@@ -169,6 +177,11 @@ function Signup() {
               label='Confirm Password'
               type='password'
               onChange={(e) => SetPassword2(e.target.value)}
+              sx={{
+                width: '100%',
+                input: { fontSize: '1.2rem', padding: '0.7rem' },
+                pb: '2vh',
+              }}
             />
 
             <TextField
@@ -177,6 +190,11 @@ function Signup() {
               label='First Name'
               name='firstName'
               onChange={handleChange}
+              sx={{
+                width: '100%',
+                input: { fontSize: '1.2rem', padding: '0.7rem' },
+                pb: '2vh',
+              }}
             />
 
             <TextField
@@ -185,13 +203,21 @@ function Signup() {
               label='Last Name'
               name='lastName'
               onChange={handleChange}
+              sx={{
+                width: '100%',
+                input: { fontSize: '1.2rem', padding: '0.7rem' },
+                pb: '2vh',
+              }}
             />
-          </Box>
-        </form>
 
-        <CommonButton onClick={handleSignUp} variant='outlined' size='large'>
-          Sign Up
-        </CommonButton>
+          </form>
+          <Button onClick={handleSignUp} variant='outlined' sx={{ width: '100%', height: '6ch' }}>
+            <Typography sx={{ fontSize: '2ch' }}>Create Account</Typography>
+          </Button>
+        </Box>
+
+
+
 
         <Container
           sx={{
@@ -214,18 +240,34 @@ function Signup() {
       </Box>
 
       <Modal open={open} variant='outlined' className='confirmation-email'>
-        <Card>
-          <CardContent>
-            <Typography sx={{ fontSize: 12 }} color='text.primary'>
+        <Card sx={{
+          textAlign: 'center',
+          align: 'center',
+          width: {xs: '100%', md: '60ch'},
+          minWidth: '40ch',
+          ml: 'auto',
+          mr: 'auto',
+          mt: '10ch',
+          p: '2ch'
+        }}>
+          <CardContent sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column',
+            align: 'center',
+            ml: 'auto',
+            mr: 'auto'
+          }}>
+            <Typography sx={{ fontSize: '2ch' }}>
               A confirmation code has been sent to your email. Please enter the
               code in the field below.
-            </Typography>
+            </Typography><br></br>
             <TextField
               label='Confirmation Code'
               className='text'
               id='ConCode'
-              color='primary'
-              fullWidth
+              color='primary' fullWidth
               size='Normal'
               variant='filled'
               onChange={onChangeconfirmationCode}
@@ -233,17 +275,21 @@ function Signup() {
             <br></br>
             <CountdownTimer />
             <br></br>
-            <button onClick={confirmCode} className='btn'>
-              Submit Code
-            </button>
-            <button onClick={handleClose} className='btn'>
-              Close
-            </button>{' '}
-            * If you close this window, you will have to sign up again.
+            <br></br>
+            <Button onClick={confirmCode} type='submit' sx={{width: '45%', height: '6ch'}}>
+              <Typography>Submit Code</Typography>
+            </Button ><br></br>
+            <Button onClick={handleClose} type='submit' sx={{width: '45%', height: '6ch'}}>
+              <Typography>Close</Typography>
+            </Button ><br></br>
+            <Typography>
+            *If you close this window, you will have to sign up again.
+            </Typography>
+            
           </CardContent>
         </Card>
       </Modal>
-    </Container>
+    </Box>
   );
 }
 

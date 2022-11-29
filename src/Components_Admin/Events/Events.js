@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Box } from '@mui/material';
 
-
 const Event = (props) => {
   const [events, setEvents] = useState([]);
   useEffect(function () {

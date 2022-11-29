@@ -15,12 +15,10 @@ function ResetInfo(props) {
     });
 
     useEffect(function () {
-        console.log("resetInfo")
         axios
             .post(`https://eventfull-backend.azurewebsites.net/userByID?userID=` + props.userID)
             .then(function ({ data }) {
                 setUser(data)
-                console.log(data)
             })
             .catch(function (error) {
                 console.log(error)
@@ -44,26 +42,21 @@ function ResetInfo(props) {
         const { value } = e.target;
         setCurrentPassword(value);
     };
-
     const onChangePassword = (e) => {
         const { value } = e.target;
         setPassword(value);
     };
-
     const onChangeConfirmPassword = (e) => {
         const { value } = e.target;
         setConfirmPassword(value);
     };
-
     const [updated, setUpdated] = useState(false);
 
     useEffect(function () {
         if (updated) {
-            console.log("resetInfo")
             axios
                 .put(`https://eventfull-backend.azurewebsites.net/users`, user)
                 .then(function () {
-                    console.log('Update successful')
                     alert('Account updated')
                     props.setUsername(user.firstName)
                 })
@@ -77,11 +70,9 @@ function ResetInfo(props) {
         e.preventDefault();
         //update info but not password
         if (currentPassword === user.password && password == null) {
-            console.log("resetInfo")
             axios
                 .put(`https://eventfull-backend.azurewebsites.net/users`, user)
                 .then(function () {
-                    console.log('Update successful')
                     alert('Account updated')
                     props.setUsername(user.firstName)
                 })
@@ -111,7 +102,6 @@ function ResetInfo(props) {
     }
 
     return (
-
         <Box component="form"
             sx={{
                 '& .MuiTextField-root': { m: 2, width: '70%', maxWidth: '80%' },
